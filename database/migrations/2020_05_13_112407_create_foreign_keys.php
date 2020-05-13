@@ -9,37 +9,37 @@ class CreateForeignKeys extends Migration {
 	public function up()
 	{
 		Schema::table('clients', function(Blueprint $table) {
-			$table->foreign('blood_type_id')->references('id')->on('clients')
+			$table->foreign('blood_type_id')->references('id')->on('blood_types')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('clients', function(Blueprint $table) {
-			$table->foreign('city_id')->references('id')->on('clients')
+			$table->foreign('city_id')->references('id')->on('cities')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('cities', function(Blueprint $table) {
-			$table->foreign('govern_id')->references('id')->on('clients')
+			$table->foreign('govern_id')->references('id')->on('governs')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('posts', function(Blueprint $table) {
-			$table->foreign('category_id')->references('id')->on('clients')
+			$table->foreign('category_id')->references('id')->on('categories')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('notifications', function(Blueprint $table) {
-			$table->foreign('donation_req_id')->references('id')->on('clients')
+			$table->foreign('donation_req_id')->references('id')->on('donation_reqs')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('donation_reqs', function(Blueprint $table) {
-			$table->foreign('city_id')->references('id')->on('clients')
+			$table->foreign('city_id')->references('id')->on('cities')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('donation_reqs', function(Blueprint $table) {
-			$table->foreign('blood_type_id')->references('id')->on('clients')
+			$table->foreign('blood_type_id')->references('id')->on('blood_types')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
@@ -49,7 +49,7 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('no action');
 		});
 		Schema::table('client_post', function(Blueprint $table) {
-			$table->foreign('post_id')->references('id')->on('clients')
+			$table->foreign('post_id')->references('id')->on('posts')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
@@ -59,12 +59,12 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('no action');
 		});
 		Schema::table('client_govern', function(Blueprint $table) {
-			$table->foreign('govern_id')->references('id')->on('clients')
+			$table->foreign('govern_id')->references('id')->on('governs')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
 		Schema::table('blood_type_client', function(Blueprint $table) {
-			$table->foreign('blood_type_id')->references('id')->on('clients')
+			$table->foreign('blood_type_id')->references('id')->on('blood_types')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});
@@ -79,7 +79,7 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('no action');
 		});
 		Schema::table('client_notification', function(Blueprint $table) {
-			$table->foreign('notification_id')->references('id')->on('clients')
+			$table->foreign('notification_id')->references('id')->on('notifications')
 						->onDelete('no action')
 						->onUpdate('no action');
 		});

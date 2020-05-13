@@ -29,6 +29,12 @@ class Client extends Authenticatable
         return $this->belongsTo('App\Models\City');
     }
 
+    public function donationReqs()
+
+    {
+        return $this->hasMany('App\Models\DonationReq');
+    }
+
     public function favorite()
     {
         return $this->belongsToMany('App\Models\Post');

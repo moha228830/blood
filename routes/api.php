@@ -35,6 +35,8 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
         Route::post('/favorite',"PostController@favorite");
         Route::get('/myFavorite',"PostController@myFavorite");
 
+        Route::get('/getDonation',"DonationController@getDonation");
+
 
     });
 
@@ -49,6 +51,12 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
 
      Route::get('/categories',"PostController@categories");
      Route::post('/posts',"PostController@posts");
+
+
+     Route::post('/addDonation',"DonationController@addDonation");
+     Route::get('/getAllDonations',"DonationController@getAllDonations");
+
+
 
 
     });

@@ -9,9 +9,6 @@ use App\Models\Client;
 use  App\Models\BloodType;
 use  App\Models\City;
 use  App\Models\Govern;
-use  App\Models\ClientGovern;
-use  App\Models\ClientNotification;
-
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -76,10 +73,10 @@ class ClientController extends Controller
         }
 
         $city = Client::where("phone", $request->phone)->first();
-        $GLOBALS["c"] = $city->city_id;
+
 
         $client = Client::where("phone", $request->phone)->with("blood_type")->with(["city" => function ($q) {
-            $q->with("govern")->find($GLOBALS["c"]);
+            $q->with("govern")->first();
         }])
             ->first();
 

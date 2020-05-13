@@ -10,14 +10,14 @@ class CreateClientsTable extends Migration {
 		Schema::create('clients', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('username');
 			$table->date('date_of_birth');
+			$table->string('username');
 			$table->string('password');
 			$table->integer('blood_type_id')->unsigned();
 			$table->integer('city_id')->unsigned();
 			$table->date('last_donation');
 			$table->string('phone');
-			$table->string('pin_code');
+			$table->string('pin_code')->nullable();
 			$table->string('email');
 			$table->string('api_token', 250);
 		});
