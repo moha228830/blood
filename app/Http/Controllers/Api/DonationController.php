@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use  App\Models\DonationReq;
+use  App\Models\Token;
 class DonationController extends Controller
 {
     public  function addDonation(Request $request)
@@ -27,15 +28,52 @@ class DonationController extends Controller
             return get_response("0", $validator->errors()->first(), $validator->errors());
         }
 
-        $donation = DonationReq::create($request->all());
-         if($donation){
-        return get_response("1", "تمت الاضافة بنجاح",$donation);
+        $donation =$request->user()-> donationReqs()->create($request->all());
+
+        $data = $donation->with("blood_type")->with("city")->first();
+
+        //find clients for this request
+        $clients_ids = $donation->city->govern->clients()
+        ->whereHas("notificate",function($q)use ($request){
+        $q->where("blood_types.id",$request->blood_type_id);
+        })->pluck("clients.id")->toArray();
+         if(count($clients_ids)){
+             //add to notification table
+             $notification=  $donation->notify()->create(
+                 [
+                "title"=>"يوجد حالة تحتاج الي تبرع",
+                "content"=>  " فصيلة دم ". $data->blood_type->blood_type . " && " ."مدينة ".  $data->city->name,
+
+                ]
+                 );
+
+                 // attach notification to client_notification
+                 $notification->clients()->attach($clients_ids);
+
+
+                 $tokens =Token::whereIn("client_id",$clients_ids)->where("token","!=","null")
+                 ->pluck("token")->toArray();
+
+                 if(count($tokens)){
+
+                  $title=  $notification->title;
+                  $body=  $notification->content;
+                  $data =[
+                      "donation_req_id"=>$donation->id
+                  ];
+
+                  $send= notifyByFirebase($title,$body,$tokens,$data);
+
+                 }
+                 return get_response("1", "تمت الاضافة بنجاح",  $donation);
          }else{
             return get_response("1", "  حاول مرة اخري",$donation);
          }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     public  function getAllDonations(Request $request)
     {

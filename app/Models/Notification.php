@@ -9,11 +9,22 @@ class Notification extends Model
 
     protected $table = 'notifications';
     public $timestamps = true;
-    protected $fillable = array('title', 'donation_req_id');
+    protected $fillable = array('title', 'donation_req_id',"content");
+    protected $hidden = [
 
-    public function for_patient()
+        "created_at",
+        "updated_at"
+
+   ];
+    public function  donation()
     {
-        return $this->hasOne('App/Models\DonationReq');
+        return $this->hasOne('App\Models\DonationReq');
     }
+
+    public function clients()
+    {
+        return $this->belongsToMany('App\Models\Client');
+    }
+
 
 }

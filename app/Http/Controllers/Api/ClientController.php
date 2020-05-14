@@ -9,6 +9,7 @@ use App\Models\Client;
 use  App\Models\BloodType;
 use  App\Models\City;
 use  App\Models\Govern;
+use  App\Models\Token;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -260,5 +261,47 @@ class ClientController extends Controller
             'blood_types'  => $request->user()->notificate()->pluck('blood_types.id')->toArray(),
         ];
         return get_response(1, 'تم  تحديث البيانات بنجاح', $data);
+    }
+
+    //////////////////////////////////////////////////////////////////
+    public function registerToken(Request $request)
+    {
+
+        $rules = [
+            'token' => 'required',
+
+        ];
+
+        $validator = validator()->make($request->all(), $rules);
+        if ($validator->fails()) {
+            return get_response(0, $validator->errors()->first(), $validator->errors());
+        }
+        Token::where("token",$request->token)->delete();
+        $request->user()->tokens()->create($request->all());
+        return get_response(1, 'تمت الاضافة بنجاح',"");
+
+
+
+    }
+
+    //////////////////////////////////////////////////////////////////
+    public function removeToken(Request $request)
+    {
+        $rules = [
+            'token' => 'required',
+
+        ];
+
+        $validator = validator()->make($request->all(), $rules);
+        if ($validator->fails()) {
+            return get_response(0, $validator->errors()->first(), $validator->errors());
+        }
+
+        Token::where("token",$request->token)->delete();
+
+        return get_response(1, 'تم الحذف بنجاح',"");
+
+
+
     }
 }

@@ -29,6 +29,9 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
 
+        Route::post('/registerToken',"ClientController@registerToken");
+        Route::post('/removeToken',"ClientController@removeToken");
+
         Route::post('/profile',"ClientController@profile");
         Route::post('/notificationSetting',"ClientController@notificationSetting");
         Route::post('/post',"PostController@post");
@@ -36,7 +39,8 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
         Route::get('/myFavorite',"PostController@myFavorite");
 
         Route::get('/getDonation',"DonationController@getDonation");
-
+        Route::post('/addDonation',"DonationController@addDonation");
+        Route::get('/getAllDonations',"DonationController@getAllDonations");
 
     });
 
@@ -49,12 +53,13 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
      Route::post('/contact',"GeneralController@contact");
      //////////////////////post/////////////////////
 
+
+
      Route::get('/categories',"PostController@categories");
      Route::post('/posts',"PostController@posts");
 
 
-     Route::post('/addDonation',"DonationController@addDonation");
-     Route::get('/getAllDonations',"DonationController@getAllDonations");
+
 
 
 

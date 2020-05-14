@@ -50,5 +50,14 @@ class Client extends Authenticatable
         return $this->belongsToMany('App\Models\BloodType');
     }
 
+    public function notifications()
+    {
+        return $this->belongsToMany('App\Models\Notification');
+    }
+
+    public function tokens ()
+    {
+        return $this->hasMany('App\Models\Token');
+    }
 
 }
