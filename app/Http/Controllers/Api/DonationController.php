@@ -12,8 +12,26 @@ class DonationController extends Controller
     public  function addDonation(Request $request)
     {
 
+        $messeges = [
+            'patient_name.required'=>" ادخل الاسم ",
+            'patient_name.max'=>"عدد احرف الاسم اكبر من 60 حرف",
+            'patient_name.min'=>"عدد احرف الاسم اقل من 4 احرف",
+            'blood_type_id.required'=>"  اختر فصيلة الدم",
+            'hospital_name.required'=>" ادخل اسم المستشفي ",
+            'age.required'=>"  ادخل عمر المريض",
+            'city_id.required'=>"  اختر المدينة",
+            'patient_phone.required'=>" ادخل رقم تليفون المريض ",
+            'bags_num.required'=>" ادخل عدد اكياس الدم ",
+            'bags_num.numeric'=>"  عدد الاكياس يجب ان تكون ارقام",
+            'hospital_address.required'=>"  ادخل عنوان المستشفي",
+
+
+           ];
+
+
+
         $validator =  Validator::make($request->all(), [
-            'patient_name' => 'required|max:60',
+            'patient_name' => 'required|max:60|min:4',
             'bags_num' => 'required|numeric',
             'blood_type_id' => 'required|numeric',
             'hospital_name' => 'required',
@@ -21,23 +39,45 @@ class DonationController extends Controller
             'city_id' => 'required|numeric',
             'longitude' => 'required',
             'latitude' => 'required',
-            'patient_phone' => 'required|alpha_num',
-        ]);
+            'patient_phone' => 'required',
+            "hospital_address"=>'required',
+        ],$messeges);
+
+
 
         if ($validator->fails()) {
             return get_response("0", $validator->errors()->first(), $validator->errors());
         }
 
+
+
         $donation =$request->user()-> donationReqs()->create($request->all());
-
         $data = $donation->with("blood_type")->with("city")->first();
+        $govern_id = $donation->city->govern->id;
 
-        //find clients for this request
-        $clients_ids = $donation->city->govern->clients()
-        ->whereHas("notificate",function($q)use ($request){
-        $q->where("blood_types.id",$request->blood_type_id);
+     $clients_ids_goveern = $donation->city->govern->clients()
+     ->whereHas("notification",function($q)use ($govern_id){
+      $q->where("governs.id",$govern_id);
+       })->pluck("clients.id")->toArray();
+
+       $clients_ids_blood_type = $donation->blood_type->clients()
+       ->whereHas("notificate",function($q)use ($request){
+         $q->where("blood_types.id",$request->blood_type_id);
         })->pluck("clients.id")->toArray();
+
+     foreach($clients_ids_goveern as $value) {
+          if(!in_array($value, $clients_ids_blood_type)){
+
+
+            array_push( $clients_ids_blood_type,$value);
+          }
+
+      }
+
+      $clients_ids= $clients_ids_blood_type;
          if(count($clients_ids)){
+
+
              //add to notification table
              $notification=  $donation->notify()->create(
                  [
@@ -54,24 +94,44 @@ class DonationController extends Controller
                  $tokens =Token::whereIn("client_id",$clients_ids)->where("token","!=","null")
                  ->pluck("token")->toArray();
 
+
+
                  if(count($tokens)){
 
                   $title=  $notification->title;
                   $body=  $notification->content;
+
+
                   $data =[
                       "donation_req_id"=>$donation->id
                   ];
 
+
                   $send= notifyByFirebase($title,$body,$tokens,$data);
 
+
                  }
-                 return get_response("1", "تمت الاضافة بنجاح",  $donation);
+
+
+                 return get_response("1", "تمت الاضافة بنجاح",   $clients_ids);
+
+
          }else{
-            return get_response("1", "  حاول مرة اخري",$donation);
+
+
+            return get_response("1", "  لا يوجد مستخدمين حددو فصيلة الدم او المدينة في الاشعارات",$donation);
+
+
          }
     }
 
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -79,25 +139,44 @@ class DonationController extends Controller
     {
 
         $donation = DonationReq::where(function($q) use($request){
+
          if($request->govern_id){
+
              $q->whereHas("city",function($q) use ($request){
                  $q->where("govern_id",$request->govern_id);
              });
+
+
          }elseif($request->city_id){
+
             $q->where("city_id",$request->city_id);
+
          }
+
+
          if($request->blood_type_id){
+
             $q->where("blood_type_id",$request->blood_type_id);
          }
+
+
 
         })->with("blood_type")->with("blood_type")->with("city.govern")->get();
 
 
         return get_response("1", "loaded.....  ",$donation);
+
+
     }
 
 
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
     public  function getDonation(Request $request)
     {
@@ -107,9 +186,12 @@ class DonationController extends Controller
             'id' => 'required|numeric|exists:App\Models\DonationReq,id',
         ]);
 
+
+
         if ($validator->fails()) {
             return get_response("0", $validator->errors()->first(), $validator->errors());
         }
+
 
 
         $donation = DonationReq::where("id",$request->id)->with("blood_type")->with("blood_type")
@@ -120,4 +202,14 @@ class DonationController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public function notificationList(Request $request){
+
+       $all=  $request->user()->notifications;
+       //
+        return get_response("1", "loaded.....  ",$all);
+
+
+    }
 }

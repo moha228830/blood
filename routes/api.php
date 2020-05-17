@@ -41,6 +41,8 @@ Route::group(['prefix' => 'v1',"namespace"=>"Api"], function () {
         Route::get('/getDonation',"DonationController@getDonation");
         Route::post('/addDonation',"DonationController@addDonation");
         Route::get('/getAllDonations',"DonationController@getAllDonations");
+        Route::get('/notificationList',"DonationController@notificationList");
+
 
     });
 
