@@ -46,7 +46,7 @@ function notifyByFirebase($title, $body, $tokens, $data = [],$is_notification=tr
         'Authorization: key=' . env('FIREBASE_API_ACCESS_KEY'),
         'Content-Type: application/json'
     );
-//dd($headers);
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
     curl_setopt($ch, CURLOPT_POST, true);

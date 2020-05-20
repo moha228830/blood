@@ -16,7 +16,7 @@ class Post extends Model
     protected $table = 'posts';
     public $timestamps = true;
     protected $fillable = array('title', 'img', 'content', 'category_id');
-    protected $appends = [   "img_full_path","is_favorite"   ] ;
+    protected $appends = [   "img_full_path","is_favorite"  ] ;
 
 
     public function  category()
@@ -46,5 +46,7 @@ class Post extends Model
     {
         return asset($this->img) ;
     }
+
+
 
 }

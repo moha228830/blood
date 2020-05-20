@@ -53,28 +53,12 @@ class DonationController extends Controller
 
         $donation =$request->user()-> donationReqs()->create($request->all());
         $data = $donation->with("blood_type")->with("city")->first();
-        $govern_id = $donation->city->govern->id;
 
-     $clients_ids_goveern = $donation->city->govern->clients()
-     ->whereHas("notification",function($q)use ($govern_id){
-      $q->where("governs.id",$govern_id);
+
+      $clients_ids = $donation->city->govern->clients()
+        ->whereHas("notificate",function($q)use ($request){
+       $q->where("blood_types.id",$request->blood_type_id);
        })->pluck("clients.id")->toArray();
-
-       $clients_ids_blood_type = $donation->blood_type->clients()
-       ->whereHas("notificate",function($q)use ($request){
-         $q->where("blood_types.id",$request->blood_type_id);
-        })->pluck("clients.id")->toArray();
-
-     foreach($clients_ids_goveern as $value) {
-          if(!in_array($value, $clients_ids_blood_type)){
-
-
-            array_push( $clients_ids_blood_type,$value);
-          }
-
-      }
-
-      $clients_ids= $clients_ids_blood_type;
          if(count($clients_ids)){
 
 

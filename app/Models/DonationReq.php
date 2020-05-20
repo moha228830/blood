@@ -14,7 +14,7 @@ class DonationReq extends Model
    ];
     protected $table = 'donation_reqs';
     public $timestamps = true;
-    protected $fillable = array('patient_name','client_id','age', 'patient_phone', 'city_id', 'blood_type_id', 'hospital_name','hospital_address', 'bags_num', 'longitude', 'latitude', 'details');
+    protected $fillable = array('patient_name','client_id','age', 'patient_phone', 'city_id', 'blood_type_id', 'hospital_name','hospital_address', 'bags_num', 'longitude', 'latitude', 'details','client_id');
 
     public function city()
     {
