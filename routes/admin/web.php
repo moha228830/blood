@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 //{
 
     Route::middleware(['auth',"auto-check-permission"])->group(function () {
-
+        Route::get('/', function () {
+            return view('dashboard.welcome');
+        })->name("home");
         Route::resource('/governs', 'governController');
         Route::resource('/cities', 'cityController');
         Route::resource('/categories', 'categoryController');

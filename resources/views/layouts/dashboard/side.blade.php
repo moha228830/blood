@@ -21,7 +21,7 @@
       <ul class="sidebar-menu">
 
         <!-- Optionally, you can add icons to the links -->
-        <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="#"><i class="fa fa-home"></i> <span> الرئيسية</span></a></li>
+        <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("home")}}"><i class="fa fa-home"></i> <span> الرئيسية</span></a></li>
 
 
       <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("governs.index")}}"><i class="fa fa-map-marker"></i> <span>المحافظات </span></a></li>
@@ -35,8 +35,8 @@
       <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("settings.index")}}"><i class="fa fa-cogs"></i> <span>@lang('site.settings') </span></a></li>
       <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("donationReqs.index")}}"><i class="fa fa-cogs"></i> <span>@lang('site.donationReqs') </span></a></li>
       <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("profile.index")}}"><i class="fa fa-cogs"></i> <span>@lang('site.profile') </span></a></li>
-      <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("profile.index")}}"><i class="fa fa-cogs"></i> <span>@lang('المستخدمين') </span></a></li>
-      <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("profile.index")}}"><i class="fa fa-cogs"></i> <span>@lang('الصلاحيات') </span></a></li>
+      <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("users.index")}}"><i class="fa fa-cogs"></i> <span>@lang('المشرفين') </span></a></li>
+      <li  class="moha" ><a style="color:rgb(255, 255, 255)" href="{{route("roles.index")}}"><i class="fa fa-cogs"></i> <span>@lang('رتب المشرفين') </span></a></li>
 
 
 
