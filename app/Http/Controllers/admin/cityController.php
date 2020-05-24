@@ -17,9 +17,23 @@ class cityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $cities =  city::with("govern")->get();
+
+       $cities = city::with("govern")->where(function ($query) use($request){
+        if ($request->input('keyword'))
+
+            {
+                $query->where(function ($query) use($request){
+                    $query->where('name','like','%'.$request->keyword.'%');
+                    $query->orWhereHas('govern',function ($q) use($request){
+                        $q->where('name','like','%'.$request->keyword.'%');
+                    });
+
+
+                });
+            }
+    })->paginate(15);
       // flash('Welcome Aboard!');
 
 

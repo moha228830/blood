@@ -323,8 +323,8 @@ class ClientController extends Controller
 
 
             'password' => 'confirmed|min:6',
-            "phone" => 'unique:clients,phone,' . $request->user()->phone,
-            "email" => 'email|unique:clients,email,' . $request->user()->email,
+            "phone" => 'unique:clients,phone,' . $request->user()->id,
+            "email" => 'email|unique:clients,email,' . $request->user()->id,
         ], $messeges);
 
 

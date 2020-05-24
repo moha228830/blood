@@ -1,7 +1,78 @@
 <?php
 
 return [
+    "app"=>"تطبيق",
+    'project' => 'بنك الدم ',
     'dashboard' => 'الرئيسيه',
+    'categories' => 'الموضوعات',
+    'category' => 'الموضوع',
+    'posts' => 'المقالات',
+    'post' => 'المقال',
+    'new' => 'اضافة جديد',
+    'add_cat' => 'اضافة موضوع',
+    'edit_cat' => 'تعديل موضوع',
+
+    'profile' => 'الملف الشخصي ',
+    'profiles' => ' الماف الشخصي',
+    'old_password' => ' كلمة المرور القديمة',
+
+
+
+    'bloodTypes' => 'فصائل الدم',
+    'bloodType' => 'فصيلة الدم',
+    'new' => 'اضافة جديد',
+    'add_blood' => 'اضافة فصيلة دم',
+    'edit_blood' => 'تعديل فصيلة الدم',
+
+
+
+    'patient_name' => ' المريض',
+    'hospital_name' => ' المستشفي',
+    'age' => 'العمر ',
+    'hospital_address' => 'عنوان المستشفي ',
+    'bags_num' => ' اكياس الدم',
+    'date' => ' التاريخ',
+    'client' => ' العميل',
+    'donationReqs' => ' طلبات التبرع',
+    'donationReq' => ' طلب التبرع',
+
+
+
+     'activity' => 'التفعيل ',
+     'city' => 'المدينة ',
+     'govern' => 'المحافظة ',
+     'active' => 'مفعل ',
+     'Inactive' => 'غير مفعل ',
+     'username' => 'الاسم ',
+      'date_of_birth' => 'تاريخ الميلاد ',
+    'last_donationt' => ' تاريخ اخر تبرع',
+    'register_date' => ' تاريخ التسجيل',
+    'search_blood' => '  بحث بفصيلة الدم',
+    'search_client' =>'بحث بالاسم ورقم الهاتف والايميل',
+
+    'title' => 'العنوان ',
+    'msg' => 'الرسالة ',
+    'contacts' => 'تواصل معنا ',
+    'no_data' => ' لا توجد بيانات ',
+
+
+    'settings' => 'الاعدادات',
+    'tw_link' => 'تويتر',
+    'fb_link' => 'فيسبوك',
+    'yt_link' => 'يوتيوب',
+    'insta_link' => 'انستجرام',
+    'contact_phone' => 'هاتف',
+    'contact_email' => 'بريد الكتروني',
+    'about_app' => 'عن التطبيق',
+    'text' => 'نص اعدادات الاشعارات',
+    'save' => 'حفظ',
+
+
+
+
+
+
+
     'logout' => 'تسجيل الخروج',
 
     'add' => 'اضف',
@@ -33,50 +104,21 @@ return [
 
     'clients' => 'العملاء',
     'client_name' => 'اسم العميل',
-    'phone' => 'التلفون',
+    'phone' => 'هاتف',
     'address' => 'العنوان',
-    'previous_orders' => 'الطلبات السابقه',
-    'orders' => 'الطلبات',
-    'add_order' => 'اضف طلب',
-    'edit_order' => 'تعديل طلب',
 
     'users' => 'المشرفين',
     'first_name' => 'الاسم الاول',
     'last_name' => 'الاسم الاخير',
     'email' => 'البريد الاكتروني',
     'image' => 'صوره',
-    'action' => 'اكشن',
+    'action' => 'ادارة',
 
     'permissions' => 'الصلاحيات',
 
-    'categories' => 'الاقسام',
-    'all_categories' => 'كل الاقسام',
-    'name' => 'الاسم',
-    'description' => 'الوصف',
-    'products_count' => 'عدد الامنتجات',
-    'related_products' => 'المنتجات المرتبطه',
-    'category' => 'القسم',
-    'show_products' => 'عرض المنتجات',
-    'created_at' => 'تم اضافته',
 
-    'products' => 'المنتجات',
-    'product' => 'المنتج',
-    'quantity' => 'الكميه',
-    'total' => 'المجموع',
-    'purchase_price' => 'سعر الشراء',
-    'price' => 'السعر',
-    'sale_price' => 'سعر البيع',
-    'stock' => 'المخزن',
-    'profit_percent' => 'المكسب',
 
-    'ar' => [
-        'name' => 'الاسم بالغه العربيه',
-        'description' => 'الوصف بالغه العربيه',
-    ],
 
-    'en' => [
-        'name' => 'الاسم بالغه الانجليزيه',
-        'description' => 'الوصف بالغه الانجليزيه',
-    ],
+
 
 ];

@@ -1,23 +1,41 @@
 <?php
 
 return [
-    'dashboard' => 'dashboard' ,
+    "app"=>"App",
+    'project' => 'Blood Bank ',
+    'dashboard' => 'home',
+    'categories' => 'categories',
+    'category' => 'category',
+    'post' => 'post',
+    'posts' => 'posts',
+    'new' => ' new',
+    'add_cat' => ' add category',
+    'edit_cat' => 'edite category ',
+
+    'bloodTypes' => ' blood Types',
+    'bloodType' => ' blood Type',
+    'add_blood' => ' add  blood Type',
+    'edit_blood' => ' edit  blood Type',
+
+
+
+
     'logout' => 'تسجيل الخروج',
 
-    'add' => 'اضف',
-    'create' => 'اضافه',
-    'read' => 'عرض',
-    'edit' => 'تعديل',
-    'update' => 'تعديل',
-    'delete' => 'حذف',
-    'search' => 'بحث',
-    'show' => 'عرض',
+    'add' => 'add',
+    'create' => 'create',
+    'read' => 'read',
+    'edit' => 'edit',
+    'update' => 'update',
+    'delete' => 'delete',
+    'search' => 'search',
+    'show' => 'show',
     'loading' => 'جاري التحميل',
     'print' => 'طبع',
 
-    'confirm_delete' => 'تاكيد الحذف',
-    'yes' => 'نعم',
-    'no' => 'لا',
+    'confirm_delete' => 'confirm delete ',
+    'yes' => 'yes',
+    'no' => 'no',
 
     'login' => 'تسجيل الدخول',
     'remember_me' => 'تذكرني',
@@ -35,48 +53,19 @@ return [
     'client_name' => 'اسم العميل',
     'phone' => 'التلفون',
     'address' => 'العنوان',
-    'previous_orders' => 'الطلبات السابقه',
-    'orders' => 'الطلبات',
-    'add_order' => 'اضف طلب',
-    'edit_order' => 'تعديل طلب',
 
     'users' => 'المشرفين',
     'first_name' => 'الاسم الاول',
     'last_name' => 'الاسم الاخير',
     'email' => 'البريد الاكتروني',
     'image' => 'صوره',
-    'action' => 'اكشن',
+    'action' => 'ادارة',
 
     'permissions' => 'الصلاحيات',
 
-    'categories' => 'الاقسام',
-    'all_categories' => 'كل الاقسام',
-    'name' => 'الاسم',
-    'description' => 'الوصف',
-    'products_count' => 'عدد الامنتجات',
-    'related_products' => 'المنتجات المرتبطه',
-    'category' => 'القسم',
-    'show_products' => 'عرض المنتجات',
-    'created_at' => 'تم اضافته',
 
-    'products' => 'المنتجات',
-    'product' => 'المنتج',
-    'quantity' => 'الكميه',
-    'total' => 'المجموع',
-    'purchase_price' => 'سعر الشراء',
-    'price' => 'السعر',
-    'sale_price' => 'سعر البيع',
-    'stock' => 'المخزن',
-    'profit_percent' => 'المكسب',
 
-    'ar' => [
-        'name' => 'الاسم بالغه العربيه',
-        'description' => 'الوصف بالغه العربيه',
-    ],
 
-    'en' => [
-        'name' => 'الاسم بالغه الانجليزيه',
-        'description' => 'الوصف بالغه الانجليزيه',
-    ],
+
 
 ];

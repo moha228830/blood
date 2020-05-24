@@ -17,9 +17,22 @@ class postController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $posts =  Post::with("category")->get();
+        $posts = post::with("category")->where(function ($query) use($request){
+            if ($request->input('keyword'))
+
+                {
+                    $query->where(function ($query) use($request){
+                        $query->where('title','like','%'.$request->keyword.'%');
+                        $query->orWhereHas('category',function ($q) use($request){
+                            $q->where('category','like','%'.$request->keyword.'%');
+                        });
+
+
+                    });
+                }
+        })->paginate(15);
       // flash('Welcome Aboard!');
 
 

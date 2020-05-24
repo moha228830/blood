@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+@lang("المدن")
+@endsection
 @section('mo')
 @include('flash::message')
 
@@ -24,7 +26,7 @@
     <section class="content">
     <div class="  " style="padding:10px">
 
-            <a href="{{ route('cities.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('اضافة مدينة')</a>
+            <a href="{{url(route("cities.create")) }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("site.new")</a>
 
     </div>
 
@@ -32,18 +34,54 @@
         <div class="box box-primary">
 
 
+
+            <div class="box-header with-border">
+
+
+
+
+
+                    <form action="{{ route('cities.index') }}" method="get">
+
+                        <div class="row">
+
+                            <div class="col-md-4"  style="margin-top:5px ">
+                                {!! Form::text('keyword',request('keyword'),[
+                                    'class' => 'form-control',
+                                    'placeholder' => '       بحث باسم المدينة '
+                                ]) !!}
+                            </div>
+
+
+
+                            <div class="col-md-4" style="margin-top:5px ">
+                                <button  type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> @lang('site.search')</button>
+
+
+
+                            </div>
+
+                        </div>
+                    </form><!-- end of form -->
+
+
+            </div><!-- end of box header -->
+
+
+
             <div class="box-body">
 
 
 
-                    <table class="table table-hover">
+                      <table class="table table-hover table table-bordered">
 
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('المدينة')</th>
-                            <th>@lang('المحافظة')</th>
-                            <th class="text-center">@lang('ادارة')</th>
+                            <th class="text-center">@lang('المدينة')</th>
+                            <th class="text-center">@lang('المحافظة')</th>
+                            <th class="text-center">@lang('تعديل')</th>
+                            <th class="text-center">@lang('حذف')</th>
                         </tr>
                         </thead>
 
@@ -53,15 +91,15 @@
 
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                            <td>{{$city->name}}</td>
-                            <td>{{$city->govern->name}}</td>
+                            <td class="text-center">{{$city->name}}</td>
+                            <td class="text-center">{{$city->govern->name}}</td>
 
 
                                 <td class="text-center">
 
                                         <a href="{{url(route("cities.edit",$city->id)) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-
-
+                                    </td>
+                                        <td class="text-center">
                                 <form action="{{url(route("cities.destroy",$city->id)) }}" method="post" style="display: inline-block">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}

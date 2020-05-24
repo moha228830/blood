@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.app')
-
+@section('title',"الرئيسية")
 @section('mo')
 @include('flash::message')
 @inject('governs', 'App\Models\Govern')
@@ -101,6 +101,6 @@
 
 
     </section><!-- /.content -->
-  </div><!-- /.content-wrapper -->
+
 
 @endsection

@@ -16,12 +16,16 @@ class categoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $categories =  Category::get();
+
       // flash('Welcome Aboard!');
 
-
+      $categories = Category::where(function ($q) use ($request) {
+        if ($request->search) {
+            $q->where('category', 'LIKE', '%' . $request->search . '%');
+        }
+    })->paginate(10);
 
         return view("/dashboard/categories/index",["categories"=>  $categories ]);
     }
@@ -47,6 +51,7 @@ class categoryController extends Controller
         $messeges = [
 
             'category.required'=>"اسم الموضوع مطلوب",
+            'category.unique'=>"اسم الموضوع موجود من قبل",
 
 
            ];
@@ -54,7 +59,7 @@ class categoryController extends Controller
 
         $validator =  Validator::make($request->all(), [
 
-            'category' => 'required',
+            'category' => 'required|unique:categories',
 
         ], $messeges);
 
@@ -114,14 +119,16 @@ class categoryController extends Controller
          $messeges = [
 
             'category.required'=>"اسم الموضوع مطلوب",
+            'category.unique'=>"اسم الموضوع موجود من قبل",
 
 
            ];
 
 
+       //  dd( $category);
         $validator =  Validator::make($request->all(), [
 
-            'category' => 'required',
+            'category' => 'required|unique:categories,category,' .$id,
 
         ], $messeges);
 
@@ -154,7 +161,13 @@ class categoryController extends Controller
     public function destroy( $id)
     {
 
-      $category= category::findOrFail($id);
+      $category= category::with("posts")->findOrFail($id);
+
+      if(count($category->posts) != 0){
+        Alert::error('error', "يجب عليك اولا ان تحذف البيانات المتعلقة بالحقل في المقالات ");
+        return back();
+
+      }
       $category->posts()->delete();
       $category->delete();
      // session()->flash('success', __('site.deleted_successfully'));

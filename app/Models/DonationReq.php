@@ -15,6 +15,7 @@ class DonationReq extends Model
     protected $table = 'donation_reqs';
     public $timestamps = true;
     protected $fillable = array('patient_name','client_id','age', 'patient_phone', 'city_id', 'blood_type_id', 'hospital_name','hospital_address', 'bags_num', 'longitude', 'latitude', 'details','client_id');
+    protected $appends = [ "date"  ] ;
 
     public function city()
     {
@@ -34,7 +35,10 @@ class DonationReq extends Model
     {
         return $this->hasOne('App\Models\Notification');
     }
-
+    public function  getDateAttribute()
+    {
+      return date("Y-m-d", strtotime($this->created_at));
+    }
 
 
 }

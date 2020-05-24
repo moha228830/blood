@@ -10,5 +10,9 @@ class ContactMesseg extends Model
     protected $table = 'contact_messegs';
     public $timestamps = true;
     protected $fillable = array('title', 'content');
+    public function client()
+    {
+        return $this->belongsTo('App\Models\Client');
+    }
 
 }

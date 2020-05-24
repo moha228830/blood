@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+@lang("site.add_cat")
+@endsection
 @section('mo')
 @include('flash::message')
 
@@ -9,8 +11,9 @@
 
 
       <h3>
-اضافة موضوع :
-      </h3>
+        @lang("site.add_cat")
+
+    </h3>
 
     </section>
 
@@ -39,7 +42,7 @@
 
 
                         <div class="form-group">
-                            <label>@lang('اسم الموضوع')</label>
+                            <label>@lang('site.category')</label>
                             <input type="text" name="category" class="form-control" value="">
                         </div>
 

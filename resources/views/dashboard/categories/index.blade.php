@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+@lang("site.categories")
+@endsection
 @section('mo')
 @include('flash::message')
 
@@ -9,7 +11,7 @@
 
 
       <h1>
-       @lang("الموضوعات")
+       @lang("site.categories")
       <small style="padding: 2px;background:rgb(180, 164, 164)">{{$categories->count()}}</small>
       </h1>
        <!--
@@ -24,7 +26,7 @@
     <section class="content">
     <div class="  " style="padding:10px">
 
-            <a href="{{ route('categories.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('اضافة موضوع')</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("site.new")</a>
 
     </div>
 
@@ -32,19 +34,47 @@
         <div class="box box-primary">
 
 
+
+            <div class="box-header with-border">
+
+
+
+                <form action="{{ route('categories.index') }}" method="get">
+
+                    <div class="row">
+
+                        <div class="col-md-4"  style="margin-top:5px ">
+                            <input type="text" name="search" class="form-control" placeholder="@lang('site.search')" value="{{ request()->search }}">
+                        </div>
+
+                        <div class="col-md-4" style="margin-top:5px ">
+                            <button  type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> @lang('site.search')</button>
+
+
+
+                        </div>
+
+                    </div>
+                </form><!-- end of form -->
+
+            </div><!-- end of box header -->
+
+
+
             <div class="box-body">
 
 
-
-                    <table class="table table-hover">
+                <div class="table-responsive">
+                    <table class="table table-hover  ">
 
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('الموضوع')</th>
-                            <th>@lang('المقالات')</th>
+                            <th>@lang('site.category')</th>
+                            <th>@lang('site.posts')</th>
 
-                            <th class="text-center">@lang('ادارة')</th>
+                            <th class="">@lang('site.edit')</th>
+                            <th class="">@lang('site.delete')</th>
                         </tr>
                         </thead>
 
@@ -55,14 +85,15 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                             <td>{{$category->category}}</td>
-                            <th>    <a href="" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i> @lang('المقالات')</a></th>
+                            <th>    <a href="" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i> @lang('site.posts')</a></th>
 
 
-                                <td class="text-center">
+                                <td class="">
 
                                         <a href="{{url(route("categories.edit",$category->id)) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
 
-
+                                </td>
+                                <td class="">
                                 <form action="{{url(route("categories.destroy",$category->id)) }}" method="post" style="display: inline-block">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}
@@ -76,9 +107,9 @@
                         </tbody>
 
                     </table><!-- end of table -->
+                </div>
 
-
-
+                    {{ $categories->appends(request()->query())->links() }}
                     <!-- Button trigger modal -->
 
 

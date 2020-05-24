@@ -16,9 +16,17 @@ class governController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $governs =  Govern::get();
+
+       $governs = Govern::where(function ($query) use($request){
+        if ($request->input('keyword'))
+        {
+
+                $query->where('name','like','%'.$request->keyword.'%');
+
+        }
+    })->paginate(15);
       // flash('Welcome Aboard!');
 
 
