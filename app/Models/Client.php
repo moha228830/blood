@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Authenticatable
 {
-
+   // protected $guard = 'clients';
     protected $hidden = [
         'password',
         'api_token',
@@ -69,5 +69,7 @@ class Client extends Authenticatable
     {
       return date("Y-m-d", strtotime($this->created_at));
     }
+
+
 
 }

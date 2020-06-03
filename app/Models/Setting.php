@@ -14,6 +14,7 @@ class Setting extends Model
    ];
     protected $table = 'settings';
     public $timestamps = true;
-    protected $fillable = array('setting_notification_text', 'about_app', 'contact_phone', 'contact_email', 'fb_link', 'tw_link', 'insta_link', 'yt_link');
+    protected $fillable = array('setting_notification_text', 'about_app', 'contact_phone',
+    'contact_email', 'fb_link', 'tw_link', 'insta_link', 'yt_link',"wats_link","android","ios");
 
 }

@@ -10,4 +10,13 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function btween($model,$min,$max)
+    {
+
+
+        $record = $model::whereBetween('created_at', [$min, $max])->get();
+        return $record ;
+
+    }
 }

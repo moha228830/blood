@@ -80,10 +80,103 @@
                 </div><!-- /.row -->
 
 
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        <!-- LINE CHART -->
+                        <div class="box box-info">
+                          <div class="box-header with-border">
+                            <h3 class="box-title">طلبات التبرع</h3>
+                            <div class="box-tools pull-right">
+                              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                          </div>
+                          <div class="box-body chart-responsive">
+                            <div class="box-body border-radius-none">
+                                <div class="chart" id="line-chart" style="height: 300px;"></div>
+                            </div>
+                          </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                       </div>
+
+                <div class="col-md-6">
+                    <!-- LINE CHART -->
+                    <div class="box box-info">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">التسجيل بالموقع</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                          <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                      </div>
+                      <div class="box-body chart-responsive">
+                        <div class="box-body border-radius-none">
+                            <div class="chart" id="line-chart2" style="height: 300px;"></div>
+                        </div>
+                      </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                   </div>
+
+
+
+
                 </div>
+
+                <div class="row">
+                   <div class="col-md-6">
+                    <!-- AREA CHART -->
+                    <div class="box box-primary">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">المحافظات تبعا لعدد طلبات التبرع</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                          <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <div class="chart">
+                         <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                        </div>
+                      </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+
+
+                  </div><!-- /.col (LEFT) -->
+
+
+                  <div class="col-md-6">
+                    <!-- AREA CHART -->
+                    <div class="box box-primary">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">المحافظات تبعا لعدد المسجلين بالموقع بالموقع</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                          <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <div class="chart">
+                         <div class="chart" id="bar-chart2" style="height: 300px;"></div>
+                        </div>
+                      </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+
+
+                  </div><!-- /.col (LEFT) -->
+                </div>
+
+
+
+
+            </div>
             </section>
-
-
 
 
 
@@ -104,3 +197,126 @@
 
 
 @endsection
+@push('scripts')
+
+<script>
+
+    //line chart
+    var line = new Morris.Line({
+        element: 'line-chart',
+        resize: true,
+        data: [
+            @foreach ($records as $record)
+            {
+                ym: "{{ $record->year }}-{{ $record->month }}", count: "{{ $record->count }}"
+            },
+            @endforeach
+        ],
+        xkey: 'ym',
+        ykeys: ['count'],
+        labels: ['@lang('طلبات التبرع')'],
+        lineWidth: 2,
+        hideHover: 'auto',
+        gridStrokeWidth: 0.4,
+        pointSize: 4,
+        gridTextFamily: 'Open Sans',
+        gridTextSize: 10
+    });
+
+
+
+     //line chart
+     var line = new Morris.Line({
+        element: 'line-chart2',
+        resize: true,
+        data: [
+            @foreach ($records_client as $record)
+            {
+                ym: "{{ $record->year }}-{{ $record->month }}", count: "{{ $record->count }}"
+            },
+            @endforeach
+        ],
+        xkey: 'ym',
+        ykeys: ['count'],
+        labels: ['@lang(' التسجيل بالموقع')'],
+        lineWidth: 2,
+        hideHover: 'auto',
+        gridStrokeWidth: 0.4,
+        pointSize: 4,
+        gridTextFamily: 'Open Sans',
+        gridTextSize: 10
+    });
+
+
+
+
+/*
+         * BAR CHART
+         * ---------
+         */
+
+         var bar_data = {
+          data: [
+            @foreach ($govern_req as $record)
+          ["{{$record->govern}}", {{$record->count}}],
+          @endforeach
+
+            ],
+          color: "#3c8dbc"
+        };
+        $.plot("#bar-chart", [bar_data], {
+          grid: {
+            borderWidth: 1,
+            borderColor: "#f3f3f3",
+            tickColor: "#f3f3f3"
+          },
+          series: {
+            bars: {
+              show: true,
+              barWidth: 0.5,
+              align: "center"
+            }
+          },
+          xaxis: {
+            mode: "categories",
+            tickLength: 0
+          }
+        });
+        /* END BAR CHART */
+
+
+
+
+         var bar_data2 = {
+          data: [
+            @foreach ($govern_client as $record)
+          ["{{$record->govern}}", {{$record->count}}],
+          @endforeach
+
+            ],
+          color: "#3c8dbc"
+        };
+        $.plot("#bar-chart2", [bar_data2], {
+          grid: {
+            borderWidth: 1,
+            borderColor: "#f3f3f3",
+            tickColor: "#f3f3f3"
+          },
+          series: {
+            bars: {
+              show: true,
+              barWidth: 0.5,
+              align: "center"
+            }
+          },
+          xaxis: {
+            mode: "categories",
+            tickLength: 0
+          }
+        });
+
+
+
+</script>
+
+@endpush

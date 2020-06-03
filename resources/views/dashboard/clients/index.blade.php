@@ -26,7 +26,7 @@
     <section class="content">
     <div class="  " style="padding:10px">
 
-            <a href="" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("site.new")</a>
+    <a href="{{url(route('clients.filter'))}}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("فلترة ")</a>
 
     </div>
 
@@ -55,8 +55,9 @@
                             @inject('bloodType','App\Models\BloodType')
                             <div class="col-sm-4" style="margin-top: 5px">
                                 {!! Form::select('blood_type_id',$bloodType->pluck('blood_type','id')->toArray(),request('blood_type_id'),[
-                                        'class' => 'form-control',
-                                        'placeholder' =>'  بحث بفصيلة الدم'
+                                        'class' => 'form-control ',
+                                        'placeholder' =>'  بحث بفصيلة الدم',
+                                        'style' =>' width:100%;heigh:100%'
                                     ]) !!}
                             </div>
 

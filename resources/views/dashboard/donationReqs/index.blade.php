@@ -26,7 +26,7 @@
     <section class="content">
     <div class="  " style="padding:10px">
 
-            <a href="" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("site.new")</a>
+            <a href="{{ route('donationReqs.filter') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang("فلترة")</a>
 
     </div>
 

@@ -109,6 +109,7 @@ box-shadow: -1px 6px 40px -9px rgba(0,0,0,0.75);
 
 
     </style>
+
     {{--<!-- jQuery 3 -->--}}
     <script src="{{ asset('dashboard_files/js/jquery.min.js') }}"></script>
 
@@ -121,6 +122,7 @@ box-shadow: -1px 6px 40px -9px rgba(0,0,0,0.75);
 
     {{--<!-- iCheck -->--}}
     <link rel="stylesheet" href="{{ asset('dashboard_files/plugins/icheck/all.css') }}">
+
 
     {{--html in  ie--}}
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -158,15 +160,15 @@ box-shadow: -1px 6px 40px -9px rgba(0,0,0,0.75);
 
 
                     {{--<!-- Tasks: style can be found in dropdown.less -->--}}
-                    <li class="dropdown tasks-menu">
+                    <li class="dropdown tasks-menu" >
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag-o"></i></a>
                         <ul class="dropdown-menu">
-                            <li>
+                            <li  style="background: #000">
                                 {{--<!-- inner menu: contains the actual data -->--}}
                                 <ul class="menu">
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
-                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            <a style="color: red" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                                 {{ $properties['native'] }}
                                             </a>
                                         </li>
@@ -177,36 +179,30 @@ box-shadow: -1px 6px 40px -9px rgba(0,0,0,0.75);
                     </li>
 
                     {{--<!-- User Account: style can be found in dropdown.less -->--}}
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown user user-menu" >
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
                             <span class="hidden-xs"></span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" >
 
-                            {{--<!-- User image -->--}}
-                            <li class="user-header">
-                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
-                                <p>
-
-                                    <small>Member since 2 days</small>
-                                </p>
-                            </li>
 
                             {{--<!-- Menu Footer-->--}}
-                            <li class="user-footer">
+                            <li class="user-footer" style="background: #367FA9">
 
-
-                                <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
+                                <a href="{{ route('home') }}" class="btn btn-default btn-flat" >@lang('الصفحة الرئيسية للموقع')</a>
+                                <a href="{{ route('user_logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">@lang('site.logout')</a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('user_logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
 
                             </li>
+
+
                         </ul>
                     </li>
                 </ul>

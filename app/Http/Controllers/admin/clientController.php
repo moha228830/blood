@@ -11,6 +11,49 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class clientController extends Controller
 {
+
+
+    public function filter(Request $request)
+    {
+        $clients = Client::with("blood_type")->with("city.govern")->where(function ($query) use($request){
+
+            if ($request->input('from') && $request->input('to'))
+
+            {
+                if($request->input('to') >= $request->input('from')){
+                $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
+                }
+                if($request->input('to') <= $request->input('from')){
+                    $query->whereBetween('created_at', [$request->input('to'), $request->input('from')]);
+                    }
+            }
+
+
+
+            if ($request->input('blood_type_id'))
+            {
+                $query->where('blood_type_id',$request->blood_type_id);
+            }
+
+            if ($request->input('city_id'))
+            {
+                $query->WhereHas('city',function ($city) use($request){
+                    $city->where('city_id',$request->city_id);
+                });
+            }
+            if ($request->input('govern_id'))
+            {
+                $query->WhereHas('city.govern',function ($govern) use($request){
+                    $govern->where('govern_id',$request->govern_id);
+                });
+            }
+        })->paginate(20);
+
+
+        return view("/dashboard/clients/filter",["clients"=>  $clients ]);
+
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +63,14 @@ class clientController extends Controller
     {
        //$clients =  client::with("blood_type")->with("city")->get();
       // flash('Welcome Aboard!');
+      // model ,  min , max
+     // $clients = Client::whereBetween('created_at', ["2020-05-10 ", "2020-05-22 "])->get();
+    //$clients=  btween( client::class,"2020-04-10","2020-05-22");
 
-      $clients = Client::with("blood_type")->with("city.govern")->where(function ($query) use($request){
+
+     // return get_response(1, 'تم  تحديث البيانات بنجاح', $clients);
+    // exit();
+    $clients = Client::with("blood_type")->with("city.govern")->where(function ($query) use($request){
         if ($request->input('keyword'))
         {
             $query->where(function ($query) use($request){
@@ -39,7 +88,6 @@ class clientController extends Controller
             $query->where('blood_type_id',$request->blood_type_id);
         }
     })->paginate(20);
-
         return view("/dashboard/clients/index",["clients"=>  $clients ]);
     }
 
@@ -159,5 +207,7 @@ public  function delete ($id)
    }
 
 }
+
+
 
 }

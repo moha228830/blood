@@ -29,7 +29,7 @@ class GeneralController extends Controller
             return get_response("0", $validator->errors()->first(), $validator->errors());
         }
         $govern = $request->govern_id;
-        $cities = City::where("govern_id", $govern)->latest()->paginate(10);
+        $cities = City::where("govern_id", $govern)->latest()->get();
 
 
         return get_response("1", "loaded...  ", $cities);

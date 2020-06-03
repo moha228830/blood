@@ -95,7 +95,7 @@
                             <td class="text-center">{{$post->title}}</td>
                             <td class="text-center">{{$post->category->category}}</td>
 
-                    <td class="text-center"><a href="{{url(route("posts.edit",$post->id)) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> @lang('عرض')</a></td>
+                              <td class="text-center"><a href="{{url(route('client_post',$post->id))}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> @lang('عرض')</a></td>
                                 <td class="text-center">
 
                                         <a href="{{url(route("posts.edit",$post->id)) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>

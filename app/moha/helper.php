@@ -15,6 +15,17 @@ return  response()->json($response);
 }
 
 
+ function btween($model,$min,$max)
+    {
+
+
+        $record = $model::whereBetween('created_at', [$min, $max])->get();
+        return $record ;
+
+    }
+
+
+
 /////////////////////////////////////////////////////////////////
 
 function notifyByFirebase($title, $body, $tokens, $data = [],$is_notification=true)
