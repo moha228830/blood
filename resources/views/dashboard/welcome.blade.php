@@ -6,6 +6,15 @@
 @inject('posts', 'App\Models\Post')
 @inject('cities', 'App\Models\City')
 @inject('categories', 'App\Models\Category')
+@inject('clients', 'App\Models\client')
+@inject('contacts', 'App\Models\ContactMesseg')
+@inject('blood_types', 'App\Models\bloodType')
+@inject('settings', 'App\Models\Setting')
+
+@inject('donation_reqs', 'App\Models\DonationReq')
+@inject('users', 'App\User')
+@inject('roles', 'App\Role')
+
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -37,7 +46,7 @@
                 <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-aqua"><i class="fa fa-flag"></i></span>
+                      <span class="info-box-icon bg-aqua"><i class="fa fa-map-marker"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">المحافظات</span>
                       <span class="info-box-number">{{$governs->count()}}<small></small></span>
@@ -48,7 +57,7 @@
 
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-red"><i class="fa fa-building"></i></span>
+                      <span class="info-box-icon bg-red"><i class="fa fa-flag"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">المدن</span>
                         <span class="info-box-number">{{$cities->count()}}</span>
@@ -68,21 +77,102 @@
                       </div><!-- /.info-box-content -->
                     </div><!-- /.info-box -->
                   </div><!-- /.col -->
+
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-file"></i></span>
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">المقالات</span>
                         <span class="info-box-number">{{$posts->count()}}</span>
                       </div><!-- /.info-box-content -->
                     </div><!-- /.info-box -->
                   </div><!-- /.col -->
+
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-phone"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">تواصل معنا</span>
+                        <span class="info-box-number">{{$contacts->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">العملاء</span>
+                        <span class="info-box-number">{{$clients->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-book"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">فصائل الدم</span>
+                        <span class="info-box-number">{{$blood_types->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-cogs"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">الاعدادات</span>
+                        <span class="info-box-number">{{$settings->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-heart"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">طلبات التبرع</span>
+                        <span class="info-box-number">{{$donation_reqs->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">المشرفين</span>
+                        <span class="info-box-number">{{$users->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-yellow"><i class="fa fa-list"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">رتب المشرفين</span>
+                        <span class="info-box-number">{{$roles->count()}}</span>
+                      </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                  </div><!-- /.col -->
+
+
+
+
+
                 </div><!-- /.row -->
-
-
-
-
-
                 <div class="row">
 
 

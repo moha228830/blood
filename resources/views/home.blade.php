@@ -173,9 +173,42 @@ $cities =  \DB::table("cities")->get();
 
     </section>
 
+
+    <section class="about-us my-4 py-5" id="about2">
+        <div class="my-5 text-center"><img src={{asset('front/imgs/logo.png')}} alt="logo"></div>
+        <div class="about-US-content px-4 mb-5">
+            <p class="my-md-4"> بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى وإضافة الى زيادة عدد الحروف التى يولدها التطبيق
+                 بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى
+            </p>
+            <p class="my-md-4"> بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى وإضافة الى زيادة عدد الحروف التى يولدها التطبيق لموقع
+                بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى
+            </p>
+            <p class="my-md-4"> بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى وإضافة الى زيادة عدد الحروف التى يولدها التطبيق
+                بنك الدمهذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
+                هذا النص من مولد النص العرب حيث يمكنك ان تولد هذا النص أو
+                العديد من النصوص الأخرى
+            </p>
+        </div>
+    </section><!--End about-us-->
+
+
+
+
     <!-- call us section  -->
     <section id="call-us">
-        <h3 class="call-us-head">اتـــصل بنا</h3>
+        <h3 class="call-us-head">تواصل معنا</h3>
+        <div class="row">
+            <div class="col-lg-6">
         <P class="call-us-follow-text">يمكنكم الاتصال بنا للاستفسار عن المعلومات وسيتم التواصل معكم فوراً </P>
         <div class="container">
             <div class="row">
@@ -190,6 +223,20 @@ $cities =  \DB::table("cities")->get();
 
             </div>
         </div>
+
+    </div>
+    <div class="col-md-6 my-1">
+        <div class="contact-form text-center">
+
+            <form action="">
+
+                <input type="text" name="messgAddres" class="form-control my-3" placeholder="عنوان الرسالة">
+                <textarea name="messageText" class="form-control my-4" rows="5" placeholder="نص الرسالة"></textarea>
+                <button  style="color: #fff" type="submit" class="btn login-btn shadow ">ارسال</button>
+            </form>
+        </div>
+    </div>
+</div>
     </section>
 
     <!-- mobile app   -->

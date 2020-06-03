@@ -35,6 +35,11 @@ Route::post('/sine_up/save', 'Auth\clientsLoginController@sine_up_submit')->name
 Route::get('/client/login', 'Auth\clientsLoginController@showLoginForm')->name('client_login');
 Route::post('/client/login', 'Auth\clientsLoginController@login')->name('client_login_submit');
 Route::get('/client/logout', 'Auth\clientsLoginController@logout')->name('client_logout');
+Route::get('/client/reset-Password', 'Auth\clientsLoginController@reset')->name('reset');
+Route::get('/client/reset-forget', 'Auth\clientsLoginController@forget')->name('forget');
+Route::post('/client/reset-send', 'Auth\clientsLoginController@send')->name('send_email');
+Route::post('/client/pin-code', 'Auth\clientsLoginController@pin_code')->name('pin_code');
+
 
 
 

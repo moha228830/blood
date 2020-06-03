@@ -33,13 +33,13 @@ class clientsLoginController extends Controller
 
       // Validate the form data
       $this->validate($request, [
-        'email'   => 'required|email',
+        'phone'   => 'required',
         'password' => 'required|min:6'
       ]);
 
       // Attempt to log the user in
 
-      if (Auth::guard('clients')->attempt(['email' => $request->email, 'password' => $request->password])) {
+      if (Auth::guard('clients')->attempt(['phone' => $request->phone, 'password' => $request->password])) {
         // if successful, then redirect to their intended location
         return redirect()->intended(route('home'));
 
@@ -54,6 +54,141 @@ class clientsLoginController extends Controller
     {
         Auth::guard('clients')->logout();
         return redirect(route("home"));
+    }
+
+
+
+    public function reset()
+    {
+
+        return view('front.reset');
+    }
+
+
+    public function pin_code(Request $request)
+    {
+        $messeges = [
+
+            'password.required'=>"حقل كلمة المرور مطلوب",
+            'password.min'=>"كلمة المرور لا تقبل اقل من 6 علامات",
+            'password.confirmed'=>"كلمة المرور غير متطابقة",
+
+            'pin_code.required'=>"كود التحقق مطلوب",
+
+           ];
+
+
+        $validator =  Validator::make($request->all(), [
+
+            'pin_code' => 'required',
+            'password' => 'required|confirmed|min:6',
+
+        ], $messeges);
+
+
+
+        if ($validator->fails()) {
+
+            Alert::error('error Title', $validator->errors());
+            return back();
+        }
+
+
+
+        $client =  Client::where("pin_code", $request->pin_code)->first();
+
+        if ($client) {
+            $phone =  $client->phone;
+            $client->password =  bcrypt($request->password);
+            $client->pin_code = null;
+            $client->save();
+
+
+            Alert::success('success Title', 'تمت العملية بنجاح قم بتسجيل الدخول ');
+            return view('front.login');
+
+
+
+
+        } else {
+            Alert::error('error Title', "كود التفعيل غير صالح");
+            return back();
+
+        }
+    }
+
+
+
+    public function forget()
+    {
+
+        return view('front.forget');
+    }
+
+
+
+
+    public function send(Request $request)
+    {
+        $messeges = [
+            'phone.required'=>"حقل رقم التليفون فارغ ",
+
+           ];
+
+
+        $validator =  Validator::make($request->all(), [
+
+            'phone' => 'required',
+        ],$messeges);
+
+
+
+        if ($validator->fails()) {
+
+            Alert::error('error Title', 'حاول مرة اخري ');
+            return back();
+        }
+
+
+
+        $client =  Client::where("phone", $request->phone)->first();
+
+
+        if ($client) {
+            $pin_code = rand("1111", "9999");
+
+            $client->pin_code = $pin_code;
+
+            $update =  $client->save();
+
+
+            if ($update == true) {
+
+                $token = $client->api_token;
+
+
+
+
+
+                Mail::to($client->email)
+
+                    ->bcc("moha228830@gmail.com")
+                    ->send(new reset_password($pin_code));
+                    Alert::success('success Title', 'ادخل كلمة مرور جديدة ');
+                    return view('front.reset');
+
+
+            } else {
+
+                Alert::error('error Title', 'حاول مرة اخري ');
+                return back();
+            }
+        } else {
+
+
+            Alert::error('error Title', 'حاول مرة اخري ');
+            return back();
+        }
     }
 
 

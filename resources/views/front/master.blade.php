@@ -19,48 +19,110 @@
     <!-- custom font -->
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/select2.css') }}">
+    <style>
+@media (max-width:768px){
+    .cont{
+        display: none;
+    }
+    .slick-caption {
+        right:15%;
+        left: 15%;
+        top: 10%;
+        text-align: center;
+    }
+}
+.connect{
+    font-weight: 500;
+}
+.connect .dropdown{
+    cursor: pointer;
+    direction: rtl;
+    padding: 0px;
+    margin: 0px
+}
+.connect .dropdown span{
+    color: #D0934D;
+}
+.connect .dropdown-item{
+    padding: 0.75rem .4rem;
+    direction: rtl
+}
+.connect .dropdown-item:not(:last-child) {
+   border-bottom: 1px solid #ddd;
+}
+.connect .dropdown-item:hover{
+    background: #2D3E50;
+    color: #fff;
+}
+.connect .dropdown-item i{
+    color: #dedfe1;
+}
+
+    </style>
 
     <title>بنك الدم الرئيسية </title>
 </head>
 <body>
 
 
-<!-- top nav section -->
-<section id="top-nav">
+  <!--top-bar-->
+  <div class="top-bar py-2" style="background: #2d3e50;
+  color: #fff;padding-bottom: .5rem!important;padding-top: .5rem!important;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-xs-1">
+        <!--row of top-bar-->
+        <div class="d-flex justify-content-between" style="display: -webkit-box!important;
+        display: flex!important;">
+            <div>
+                |
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <a style= rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+                |
+                @endforeach
 
             </div>
-            <div class="col-md-4">
-                <div class="social-media">
-                    <a href="{{$setting->fb_link}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{$setting->insta_link}}" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="{{$setting->tw_link}}" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="{{$setting->wats_link}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-                </div>
-
+            <div class="con">
+                <ul class="list-unstyled" >
+                    <li class="d-inline-block mx-2"><a class="facebook" href=""><i
+                                class="fab fa-facebook-f"></i></a></li>
+                    <li class="d-inline-block mx-2"><a class="insta" href=""><i
+                                class="fab fa-instagram"></i></a></li>
+                    <li class="d-inline-block mx-2"><a class="twitter" href=""><i
+                                class="fab fa-twitter"></i></a></li>
+                    <li class="d-inline-block mx-2"><a class="whatsapp" href=""><i
+                                class="fab fa-whatsapp"></i></a></li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <div class="contact">
-
-                    <p class="email"> {{$setting->contact_email}}</p>
-
-                    <i class="fas fa-envelope-square email "></i>
-                    <p class="phone "> {{$setting->contact_phone}} 002+
-                    </p>
-                    <i class="fas fa-phone-volume phone hvr-buzz"></i>
+            @if(auth()->guard('clients')->user())
+            <div class="connect">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                       &nbsp; &nbsp;{{auth()->guard('clients')->user()->username}}
+                    </a>
+                    <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="index.html"> <i class="fas fa-home ml-2"></i>الرئيسيه</a>
+                        <a class="dropdown-item" href="#"> <i class="fas fa-user-alt ml-2"></i>معلوماتى</a>
+                        <a class="dropdown-item" href="#"> <i class="fas fa-bell ml-2"></i>اعدادات الاشعارات</a>
+                        <a class="dropdown-item" href="#"> <i class="far fa-heart ml-2"></i>المفضلة</a>
+                        <a class="dropdown-item" href="#"> <i class="far fa-comments ml-2"></i>ابلاغ</a>
+                        <a class="dropdown-item" href="contact.html"> <i class="fas fa-phone ml-2"></i>تواصل
+                            معنا</a>
+                        <a class="dropdown-item" href="#"> <i class="fas fa-sign-out-alt ml-2"></i>خروج</a>
+                    </div>
                 </div>
-
+                @endif
             </div>
         </div>
-
+        <!--End row-->
     </div>
-</section>
+    <!--End container-->
+</div>
+<!--End top-bar-->
 <!-- oradaniry nav section -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="nav-logo " href="{{url("home")}}#"><img class="logo" src="imgs/logo.png"></a>
+    <a class="nav-logo " href="{{url("home")}}#"><img class="logo" src={{asset('front/imgs/logo.png')}}></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -84,11 +146,11 @@
                 <a class="nav-link border-left" href={{url("home/donation")}}>طلبات التبرع</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link border-left" href="{{url("home")}}#mobile-app">من نحن</a>
+                <a class="nav-link border-left" href="{{url("home")}}#about2">من نحن</a>
 
             </li>
             <li class="nav-item">
-            <a class="nav-link border-left" href="{{url("home")}}#call-us">اتصل بنا </a>
+            <a class="nav-link border-left" href="{{url("home")}}#call-us">تواصل معنا </a>
             </li>
             @if(auth()->guard('web')->user())
             <li class="nav-item">
@@ -97,23 +159,6 @@
 
             @endif
              {{--<!-- Tasks: style can be found in dropdown.less -->--}}
-             <li class="nav-item">
-                <a href="#" class="nav-link border-left" data-toggle="dropdown">اللغات</a>
-                <ul class="dropdown-menu">
-                    <li  style="background: #000">
-                        {{--<!-- inner menu: contains the actual data -->--}}
-                        <ul class="menu">
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li>
-                                    <a style="color: red" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                        {{ $properties['native'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                </ul>
-            </li>
 
         </ul>
         <span class="navbar-text">
@@ -155,11 +200,11 @@
                     <a href={{url("home/donation")}}>
                         <li> طلبات التبرع</li>
                     </a>
-                    <a href="{{url("home")}}#mobile-app">
+                    <a href="{{url("home")}}#about2">
                         <li> من نحن</li>
                     </a>
                     <a href="{{url("home")}}#call-us">
-                        <li> اتصل بنا</li>
+                        <li>  تواصل معنا</li>
                     </a>
 
                 </ul>

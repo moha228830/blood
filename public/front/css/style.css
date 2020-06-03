@@ -1133,3 +1133,17 @@ margin-bottom: 2rem;
 .form-control{
 padding:0px
 }
+
+.top-bar ul{
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.top-bar a.log{
+    color: #D0934D;
+}
+
+style.css:32
+.top-bar {
+    background: #2d3e50;
+    color: #fff;
+}
