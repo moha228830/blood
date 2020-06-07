@@ -19,6 +19,7 @@
     <!-- custom font -->
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/select2.css') }}">
+    <link rel="manifest" href="{{ asset('front/js/manifest.json') }}">
     <style>
 @media (max-width:768px){
     .cont{
@@ -57,7 +58,23 @@
 .connect .dropdown-item i{
     color: #dedfe1;
 }
-
+.form-control{
+    padding: 0px
+}
+#not{
+    background-color: #ffc107;display: inline;
+                       padding: .2em .3em .3em;
+                       font-size: 75%;
+                       font-weight: 700;
+                       line-height: 1;
+                       color: #fff;
+                       text-align: center;
+                       white-space: nowrap;
+                       vertical-align: baseline;
+                       border-radius: .25em;position: absolute;
+                       top:-2px;
+                        right: -11px;
+                        font-size: 72%;}
     </style>
 
     <title>بنك الدم الرئيسية </title>
@@ -84,32 +101,46 @@
             </div>
             <div class="con">
                 <ul class="list-unstyled" >
-                    <li class="d-inline-block mx-2"><a class="facebook" href=""><i
+                    <li class="d-inline-block mx-2"><a class="facebook" href="{{$setting->fb_link}}"><i
                                 class="fab fa-facebook-f"></i></a></li>
-                    <li class="d-inline-block mx-2"><a class="insta" href=""><i
+                    <li class="d-inline-block mx-2"><a class="insta" href="{{$setting->insta_link}}"><i
                                 class="fab fa-instagram"></i></a></li>
-                    <li class="d-inline-block mx-2"><a class="twitter" href=""><i
+                    <li class="d-inline-block mx-2"><a class="twitter" href="{{$setting->tw_link}}"><i
                                 class="fab fa-twitter"></i></a></li>
-                    <li class="d-inline-block mx-2"><a class="whatsapp" href=""><i
+                    <li class="d-inline-block mx-2"><a class="whatsapp" href="{{$setting->wats_link}}"><i
                                 class="fab fa-whatsapp"></i></a></li>
                 </ul>
             </div>
             @if(auth()->guard('clients')->user())
             <div class="connect">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                <div class="dropdown" >
+
+
+
+                    <a style="background:#000" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                       &nbsp; &nbsp;{{auth()->guard('clients')->user()->username}}
+@inject('ClientNotification', 'App\Models\ClientNotification')
+
+@php
+ $id=auth()->guard('clients')->user()->id;
+$is_read=$ClientNotification->where("client_id",$id)->where("is_read","0")->get();
+@endphp
+                       <span id="not" class="label label-warning" style=""> {{$is_read->count()}}</span>
+
+                       <i class="fas fa-user ml-2"></i>
+
+
                     </a>
                     <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="index.html"> <i class="fas fa-home ml-2"></i>الرئيسيه</a>
-                        <a class="dropdown-item" href="#"> <i class="fas fa-user-alt ml-2"></i>معلوماتى</a>
+                    <a class="dropdown-item" href="{{url(route("client_profile"))}}"> <i class="fas fa-user-alt ml-2"></i>معلوماتى</a>
                         <a class="dropdown-item" href="#"> <i class="fas fa-bell ml-2"></i>اعدادات الاشعارات</a>
                         <a class="dropdown-item" href="#"> <i class="far fa-heart ml-2"></i>المفضلة</a>
                         <a class="dropdown-item" href="#"> <i class="far fa-comments ml-2"></i>ابلاغ</a>
                         <a class="dropdown-item" href="contact.html"> <i class="fas fa-phone ml-2"></i>تواصل
                             معنا</a>
                         <a class="dropdown-item" href="#"> <i class="fas fa-sign-out-alt ml-2"></i>خروج</a>
+
                     </div>
                 </div>
                 @endif
@@ -255,8 +286,11 @@
     </div>
 </section>
 
-<script src="{{ asset('dashboard_files/js/select2.js') }}"></script>
-<!-- Optional JavaScript -->
+
+<!-- Optional JavaScript
+<script src="front/js/firbase.js"></script>
+-->
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -268,6 +302,16 @@
         integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
+<script src="{{ asset('dashboard_files/js/select2.js') }}"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('{{asset('front/js/firebase-messaging-sw.js')}}');
+      });
+    }
+  </script>
 <script type="text/javascript">var scrolltotop = {
         setting: {
             startline: 100,
@@ -319,9 +363,10 @@
 
 <script>
     // In your Javascript (external .js resource or <script> tag)
-$(document).ready(function() {
+        $(document).ready(function() {
     $('.js-example-basic-single').select2();
 });
+
 </script>
 <script src="{{asset('front/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('front/js/main.js')}}"></script>
@@ -329,3 +374,125 @@ $(document).ready(function() {
 @include('sweetalert::alert')
 </body>
 </html>
+
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+       const config = {
+           apiKey: "AIzaSyDo7ROTfCj3FUEdnIRe1t_1vqDcNiN0giY",
+           authDomain: "moha-15237.firebaseapp.com",
+           databaseURL: "https://moha-15237.firebaseio.com",
+           projectId: "moha-15237",
+           storageBucket: "moha-15237.appspot.com",
+           messagingSenderId: "895678542983",
+           appId: "1:895678542983:web:3cabd0402e892222683422"
+
+       };
+
+       firebase.initializeApp(config);
+       const messaging = firebase.messaging();
+       messaging.usePublicVapidKey("BF2lDTgqhjcDt5aPbdEg0iS7jgycknTTsn7BbPtJ23lQtScRDJBy7Fw9y9wyPVBKppSguc85SxFcf3f1sowiOx4");
+
+
+            messaging.requestPermission()
+                .then(function () {
+                  console.log("success connection")
+                 // if(isTokenSentToServer()){
+                    // console.log("token allredy send")
+                 // }else{
+                     getRegisterToken()
+                 // }
+
+
+                })
+
+
+
+                .catch(function (err) {
+
+                    console.log("Unable to get permission to notify.", err);
+                });
+
+              function getRegisterToken(){
+
+                   // Get Instance ID token. Initially this makes a network call, once retrieved
+                            // subsequent calls to getToken will return from cache.
+                            messaging.getToken().then((currentToken) => {
+                              if (currentToken) {
+                                console.log(currentToken);
+                                saveToken(currentToken);
+                                sendTokenToServer(currentToken);
+                                //updateUIForPushEnabled(currentToken);
+                              } else {
+                                // Show permission request.
+                                console.log('No Instance ID token available. Request permission to generate one.');
+                                // Show permission UI.
+                                //updateUIForPushPermissionRequired();
+                                setTokenSentToServer(false);
+                              }
+                            }).catch((err) => {
+                             // console.log('An error occurred while retrieving token. ', err);
+                              //showToken('Error retrieving Instance ID token. ', err);
+                              setTokenSentToServer(false);
+                            });
+
+               }
+               function setTokenSentToServer(sent) {
+                 window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+                 }
+
+                 function isTokenSentToServer() {
+                        return window.localStorage.getItem('sentToServer') === '1';
+                        }
+
+
+                 function sendTokenToServer(currentToken) {
+                     if (!isTokenSentToServer()) {
+                    console.log('Sending token to server...');
+                   // TODO(developer): Send the current token to your server.
+                   setTokenSentToServer(true);
+                   } else {
+                     console.log('Token already sent to server so won\'t send it again ' +
+                     'unless it changes');
+    }
+
+  }
+
+
+ function saveToken(currentToken){
+
+
+        $.ajax({
+           url: '{{url(route('save-device-token'))}}',
+           type: 'POST',
+
+           data: {_token:"{{csrf_token()}}",
+           Client_id:"{{auth()->guard('clients')->user()->id ?? ""}}",
+           token: currentToken
+
+        },
+           success: function (response) {
+           console.log(response)
+           },
+           error: function (err) {
+            console.log(err);
+           },
+       });
+    }
+
+    messaging.onMessage(function(payload) {
+        console.log(payload);
+
+       //console.log(payload.notification.title);
+       var not = document.querySelectorAll("#not");
+       document.getElementById("not").innerHTML= parseInt(not[0].textContent) + 1;
+       document.getElementById("te").innerHTML="لديك طلب تبرع جديد";
+
+     var title = payload.notification.title;
+     var option={
+         body:payload.notification.body
+     };
+        var notification = new Notification(title,option);
+    });
+   })
+</script>

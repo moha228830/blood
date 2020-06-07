@@ -12,12 +12,14 @@ class Client extends Authenticatable
         'api_token',
         'pin_code',
          "created_at",
-         "updated_at"
+         "updated_at",
+         "device_token"
 
     ];
     protected $table = 'clients';
     public $timestamps = true;
-    protected $fillable = array('username',"activity" ,'date_of_birth', 'password', 'blood_type_id', 'city_id', 'last_donation', 'phone', 'email',"api_token","pin_code");
+    protected $fillable = array('username',"activity" ,'date_of_birth', 'password', 'blood_type_id',
+     'city_id', 'last_donation', 'phone', 'email',"api_token","pin_code","device_token");
     protected $appends = [ "date"  ] ;
 
     public function blood_type()
@@ -53,7 +55,7 @@ class Client extends Authenticatable
 
     public function notifications()
     {
-        return $this->belongsToMany('App\Models\Notification');
+        return $this->belongsToMany('App\Models\Notification')->withPivot('is_read');;
     }
 
     public function tokens ()

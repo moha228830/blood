@@ -89,7 +89,7 @@ $cities =  \DB::table("cities")->get();
                     <div class="row  dropdown" style="padding: 10px">
 
                         <div class="col-md-5" style="margin-top: 5px">
-                            <select class="custom-select js-example-basic-single" name="blood">
+                            <select class="custom-select js-example-basic-single" name="blood" style="width: 100%">
                                 <option value="" selected>اختر فصيلة الدم</option>
                                 @foreach($blood_types as $blood_type)
                                 <option
@@ -104,7 +104,7 @@ $cities =  \DB::table("cities")->get();
                         </div>
 
                         <div class="col-md-5" style="margin-top: 5px">
-                            <select class="custom-select" name="city">
+                            <select class="custom-select js-example-basic-single" name="city" style="width: 100%">
                                 <option value="" selected>اختر المدينة</option>
                                 @foreach($cities as $city)
                             <option
@@ -117,8 +117,8 @@ $cities =  \DB::table("cities")->get();
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2 " style="margin-top: 5px">
-                            <button style="background: #fff"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
+                        <div class="col-md-2 " style="margin-top: 5px;padding:0">
+                            <button style="background: #fff;padding:3px"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
                         </div>
 
                     </div>

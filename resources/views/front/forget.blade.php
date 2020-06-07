@@ -1,6 +1,6 @@
 @extends('front.master')
 @section('content')
-<div class="container" style="margin: 20px 0">
+<div class="container" style="margin: 20px auto">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

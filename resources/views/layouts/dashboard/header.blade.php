@@ -50,6 +50,7 @@ box-shadow: -1px 6px 40px -9px rgba(0,0,0,0.75);
     @else
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/font-awesome.min.css') }}">
+        <link rel="manifest" href="{{ asset('front/js/manifest.json') }}">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/AdminLTE.min.css') }}">
     @endif
 

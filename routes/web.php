@@ -20,7 +20,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
 
 Route::middleware(['auth:clients'])->group(function () {
+    Route::get('/test', 'HomeController@test')->name('test');
+    Route::post('/send-push', 'fcbController@sendPush')->name('send-push');
+    Route::post('/save-device-token', 'fcbController@saveToken')->name('save-device-token');
+
+
     Route::post('/toggle_favourite', 'HomeController@toggle_favourite')->name('toggle-favourite');
+    Route::get('/client/profile', 'Auth\clientsLoginController@profile')->name('client_profile');
+    Route::post('/client/profile/save', 'Auth\clientsLoginController@profile_save')->name('client_profile_save');
+    Route::get('/client/donations/add', 'HomeController@add_donation')->name('add_donation');
+    Route::post('/client/donations/save', 'HomeController@save_donation')->name('save_donation');
+    Route::get('/client/notifications/setting', 'HomeController@notification_setting')->name('notification_setting');
+    Route::get('/client/notifications', 'HomeController@notification')->name('notification_client');
+    Route::post('/client/notifications/save', 'HomeController@notificationSetting')->name('notificationSetting');
 
 });
 Route::get('/home', 'HomeController@index')->name('home');

@@ -181,6 +181,12 @@ class DonationController extends Controller
         $donation = DonationReq::where("id",$request->id)->with("blood_type")->with("blood_type")
         ->with("city.govern")->first();
 
+ $a=$request->user()->notifications()->where('donation_req_id',$donation->id)->first();
+ if($a){
+$request->user()->notifications()->updateExistingPivot($a->pivot->notification_id, [
+   'is_read' => 1
+]);
+ }
 
         return get_response("1", "loaded.....  ",$donation);
     }
@@ -191,6 +197,7 @@ class DonationController extends Controller
     public function notificationList(Request $request){
 
        $all=  $request->user()->notifications;
+
        //
         return get_response("1", "loaded.....  ",$all);
 

@@ -5,19 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-xs-12 col-sm-12">
             <div class="card">
-                <div class="card-header">{{ __('تسجيل جديد') }}</div>
+                <div class="card-header">{{ __(' اضافة طلب تبرع') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('sine_up_submit') }}">
+                    <form method="POST" action="{{ route('save_donation') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('الاسم') }}</label>
+                            <label for="patient_name" class="col-md-4 col-form-label text-md-right">{{ __('اسم المريص') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="name" autofocus>
+                                <input id="patient_name" type="text" class="form-control @error('patient_name') is-invalid @enderror" name="patient_name" value="{{ old('patient_name') }}" required autocomplete="patient_name" autofocus>
 
-                                @error('username')
+                                @error('patient_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -27,12 +27,27 @@
 
 
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('رقم الهاتف') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('عمر المريص') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="name" autofocus>
+                                <input id="age" type="number" class="form-control @error('age') is-invalid @enderror" name="age" value="{{ old('age') }}" required autocomplete="age" autofocus>
 
-                                @error('phone')
+                                @error('age')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="patient_phone" class="col-md-4 col-form-label text-md-right">{{ __('رقم الهاتف') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="patient_phone" type="number" class="form-control @error('patient_phone') is-invalid @enderror" name="patient_phone" value="{{ old('patient_phone') }}" required autocomplete="patient_phone" autofocus>
+
+                                @error('patient_phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -41,12 +56,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('البريد الالكتروني') }}</label>
+                            <label for="hospital_name" class="col-md-4 col-form-label text-md-right">{{ __('المستشفي ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="hospital_name" type="text" class="form-control @error('hospital_name') is-invalid @enderror" name="hospital_name" value="{{ old('hospital_name') }}" required autocomplete="hospital_name">
 
-                                @error('email')
+                                @error('hospital_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -55,12 +70,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('كلمة المرور') }}</label>
+                            <label for="hospital_address" class="col-md-4 col-form-label text-md-right">{{ __(' عنوان المستشفي') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="hospital_address" type="text" class="form-control @error('hospital_address') is-invalid @enderror" name="hospital_address" value="{{ old('hospital_address') }}" required autocomplete="hospital_address">
 
-                                @error('password')
+                                @error('hospital_address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -69,10 +84,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('تاكيد كلمة المرور') }}</label>
+                            <label for="bags_num" class="col-md-4 col-form-label text-md-right">{{ __('  عدد اكياس الدم') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="bags_num" type="number" class="form-control @error('bags_num') is-invalid @enderror" name="bags_num" required autocomplete="bags_num" value="{{ old('bags_num') }}">
                             </div>
                         </div>
 
@@ -150,11 +165,12 @@
 
 
                         <div class="form-group row">
-                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('تاريخ الميلاد') }}</label>
+                            <label for="details" class="col-md-4 col-form-label text-md-right"><small>اختياري</small>{{ __(' التفاصيل ') }} </label>
 
                             <div class="col-md-6">
-                                <input id="birth_date" type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" required autocomplete="name" autofocus>
-
+                                <textarea id="details" rows="5" class="form-control @error('details') is-invalid @enderror" name="details"  required autocomplete="details" autofocus>
+                                {{ old('details') }}
+                                </textarea>
                                 @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -164,25 +180,13 @@
                         </div>
 
 
-                        <div class="form-group row">
-                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('تاريخ  اخر تبرع') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="last_donation" type="date" class="form-control @error('last_donation') is-invalid @enderror" name="last_donation" value="{{ old('last_donation') }}" required autocomplete="name" autofocus>
-
-                                @error('last_donation')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary btn-block text-center " style="width: 80%;margin:0 auto">
-                                    {{ __('تسجيل') }}
+                                    {{ __('حفظ') }}
                                 </button>
                             </div>
                         </div>

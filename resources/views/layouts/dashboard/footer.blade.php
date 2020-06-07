@@ -114,6 +114,9 @@
  <script src="{{ asset('dashboard_files/plugins/flot/jquery.flot.pie.min.js') }}"></script>
  <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
  <script src="{{ asset('dashboard_files/plugins/flot/jquery.flot.categories.min.js') }}"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
+<script src="{{ asset('front/js/firbase.js') }}"></script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {

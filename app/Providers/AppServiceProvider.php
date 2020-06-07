@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\ClientNotification;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 
@@ -28,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
       Schema::defaultStringLength(191);
         $setting = Setting::first();
         view()->share(compact('setting'));
+        ///////////////////////////////////////////////
+ 
     }
 }

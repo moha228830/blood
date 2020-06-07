@@ -13,13 +13,14 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\reset_password;
+use App\Models\Govern;
 use RealRashid\SweetAlert\Facades\Alert;
 class clientsLoginController extends Controller
 {
 
     public function __construct()
     {
-     $this->middleware('guest:clients', ['except' => ['logout']]);
+     $this->middleware('guest:clients', ['except' => ['logout',"profile","profile_save"]]);
 
     }
 
@@ -115,6 +116,97 @@ class clientsLoginController extends Controller
             return back();
 
         }
+    }
+
+
+
+    public function profile()
+    {
+
+     $client= Auth::guard('clients')->user();
+
+
+        return view('front.profile',["client"=>$client]);
+    }
+
+    public function profile_save(Request $request)
+    {
+
+        $messeges = [
+
+            'password.min'=>"كلمة المرور الجديدة لا تقبل اقل من 6 علامات",
+            'password.required'=>"كلمة المرور القديمة مطلوبة مع كلمة المرور الجديدة ",
+            'password_old.required'=>"كلمة المرور الجديدة مطلوبة مع كلمة المرور القديمة ",
+            'password.confirmed'=>"كلمة المرور غير متطابقة",
+
+            'email.email'=>"الايميل غير صالح",
+            'email.unique'=>"الايميل موجود من قبل",
+
+            'phone.unique'=>"رقم التليفون موجود من قبل",
+           ];
+
+
+
+           if ($request->password !="" or $request->password_old !="" ){
+
+
+            $password=Auth::guard('clients')->user()->password;
+
+             if( !Hash::check($request->password_old, $password))
+             {
+                Alert::error('error', "كلمة المرور القديمة غير صحيحة");
+
+                return back();
+             }
+
+        $validator =  Validator::make($request->all(), [
+
+            'password_old'=>"required_with:password",
+            'password' => 'confirmed|min:6|required_with:password_old',
+            "phone" => 'unique:clients,phone,' . $request->user()->id,
+            "email" => 'email|unique:clients,email,' . $request->user()->id,
+        ], $messeges);
+
+
+
+
+           }else{
+
+            $validator =  Validator::make($request->all(), [
+
+
+
+                "phone" => 'unique:clients,phone,' . $request->user()->id,
+                "email" => 'email|unique:clients,email,' . $request->user()->id,
+            ], $messeges);
+
+         }
+
+        if ($validator->fails()) {
+
+            Alert::error('error', $validator->errors()->first());
+
+            return back();
+        }
+
+
+        $loginuser = $request->user();
+        $save1=$loginuser->update($request->except(['password_old',"password"]));
+        if ($request->has("password") and $request->password != "") {
+            $loginuser->password = bcrypt($request->password);
+        }
+        $save2=  $loginuser->save();
+        if($save1 and $save2){
+            Alert::success('success', 'success');
+
+            return back();
+        }else{
+            Alert::error('error', 'خطأ غير متوقع حاول مرة اخري');
+
+            return back();
+        }
+
+
     }
 
 
