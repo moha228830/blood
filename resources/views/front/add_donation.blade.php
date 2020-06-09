@@ -1,6 +1,7 @@
 @extends('front.master')
-
-@section('content')
+@section('title')
+اضافة طلب تبرع
+@endsection@section('content')
 <div class="container" style="margin: 20px auto">
     <div class="row justify-content-center">
         <div class="col-md-12 col-xs-12 col-sm-12">

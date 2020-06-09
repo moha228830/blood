@@ -1,14 +1,17 @@
 @extends('front.master')
+@section('title')
+الرئيسية
+@endsection
 @section('content')
     <!-- Header-->
     <header id="header">
-        <div class="container-fluid">
+        <div class="container-fluid" >
             <div class="header-text">
-                <h1 class="head-text">بنك الدم نمضى قدماً لصحة افضل</h1>
-                <p class="follow-text"> تصل معنا الي الحالات
-                    التي تحتاج نقل الدم <br>
-                     او انشر طلبك للحصول علي
-                   المساعدة</p>
+                <h3 class="head-text">بنك الدم نمضى قدماً لصحة افضل</h3>
+                <p class="follow-text"> ومن احياها فكأنما احي الناس جميعا
+                    <br>
+                    ساعد في الخير وانشر التطبيق
+                   </p>
                 <a  href="{{url("home")}}#mobile-app">
                     <button class="btn login-btn">الي التطبيق</button>
                 </a>
@@ -34,7 +37,7 @@
                 @foreach($posts as $post)
 
                     <div class="item">
-                        <div class="card" style="width: 22rem;">
+                        <div class="card" style="width: ;">
                             @if(auth()->guard('clients')->user())
                             <i id="{{$post->id}}" onclick="toggleFavourite(this)" class="fab fa-gratipay
 
@@ -118,7 +121,7 @@ $cities =  \DB::table("cities")->get();
                             </select>
                         </div>
                         <div class="col-md-2 " style="margin-top: 5px;padding:0">
-                            <button style="background: #fff;padding:3px"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
+                            <button style="background: #fff;padding:2px"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
                         </div>
 
                     </div>
@@ -174,7 +177,7 @@ $cities =  \DB::table("cities")->get();
     </section>
 
 
-    <section class="about-us my-4 py-5" id="about2">
+    <section class="about-us my-4 " id="about2">
         <div class="my-5 text-center"><img src={{asset('front/imgs/logo.png')}} alt="logo"></div>
         <div class="about-US-content px-4 mb-5">
             <p class="my-md-4"> بنك الدم هذا النص هو مثال لنص ممكن أن يستبدل فى نفس المساحه, لقد تم توليد
@@ -228,10 +231,10 @@ $cities =  \DB::table("cities")->get();
     <div class="col-md-6 my-1">
         <div class="contact-form text-center">
 
-            <form action="">
-
-                <input type="text" name="messgAddres" class="form-control my-3" placeholder="عنوان الرسالة">
-                <textarea name="messageText" class="form-control my-4" rows="5" placeholder="نص الرسالة"></textarea>
+        <form action="{{url(route("client.contact"))}}" method="post">
+                @csrf
+                <input required type="text" name="title" class="form-control my-3" placeholder="عنوان الرسالة">
+                <textarea required name="content" class="form-control my-4" rows="5" placeholder="نص الرسالة"></textarea>
                 <button  style="color: #fff" type="submit" class="btn login-btn shadow ">ارسال</button>
             </form>
         </div>

@@ -65,7 +65,7 @@ class Client extends Authenticatable
 
     public function contacts ()
     {
-        return $this->hasMany('App\Models\Client');
+        return $this->hasMany('App\Models\ContactMesseg');
     }
     public function  getDateAttribute()
     {

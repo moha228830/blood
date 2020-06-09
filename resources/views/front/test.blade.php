@@ -1,5 +1,7 @@
 @extends('front.master')
-
+@section('title')
+test_code
+@endsection
 @section('content')
     <div id="app" class="container">
         <div class="row justify-content-center">

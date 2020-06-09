@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+تعديل مقال
+@endsection
 @section('mo')
 
 <!-- include('flash::message') -->

@@ -109,7 +109,7 @@
                                 <td class="text-center">{{$donationReq->hospital_address}}</td>
                                 <td class="text-center">{{$donationReq->bags_num}}</td>
                                 <td class="text-center">{{$donationReq->date}}</td>
-                                <td class="text-center">{{$donationReq->client->username}}</td>
+                                <td class="text-center">{{$donationReq->client->username??""}}</td>
 
                                 <td class="text-center">
                                     <form action="{{url(route("donationReqs.destroy",$donationReq->id)) }}" method="post" style="display: inline-block">

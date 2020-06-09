@@ -65,16 +65,16 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-hover  ">
+                    <table class="table table-hover table-bordered  ">
 
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('site.category')</th>
-                            <th>@lang('site.posts')</th>
+                            <th class="text-center">@lang('site.category')</th>
+                            <th class="text-center">@lang('site.posts')</th>
 
-                            <th class="">@lang('site.edit')</th>
-                            <th class="">@lang('site.delete')</th>
+                            <th class="text-center">@lang('site.edit')</th>
+                            <th class="text-center">@lang('site.delete')</th>
                         </tr>
                         </thead>
 
@@ -84,16 +84,16 @@
 
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                            <td>{{$category->category}}</td>
-                            <th>    <a href="" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i> @lang('site.posts')</a></th>
+                            <td class="text-center">{{$category->category}}</td>
+                            <th class="text-center">    <a href="" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i> @lang('site.posts')</a></th>
 
 
-                                <td class="">
+                                <td class="text-center">
 
                                         <a href="{{url(route("categories.edit",$category->id)) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
 
                                 </td>
-                                <td class="">
+                                <td class="text-center">
                                 <form action="{{url(route("categories.destroy",$category->id)) }}" method="post" style="display: inline-block">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}

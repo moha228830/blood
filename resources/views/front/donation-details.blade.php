@@ -1,4 +1,7 @@
 @extends('front.master')
+@section('title')
+طلب التبرع
+@endsection
 @section('content')
 @php
 

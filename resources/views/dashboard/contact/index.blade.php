@@ -79,13 +79,14 @@
                         </thead>
                         <tbody>
                         @foreach($contacts as $contact)
+
                             <tr id="removable{{$contact->id}}">
                                 <td>{{$loop->iteration}}</td>
                                 <td class="text-center">{{$contact->title}}</td>
                                 <td class="text-center">{{$contact->content}}</td>
-                                <td class="text-center">{{$contact->client->username}}</td>
-                                <td class="text-center">{{$contact->client->email}}</td>
-                                <td class="text-center">{{$contact->client->phone}}</td>
+                                <td class="text-center">{{$contact->client->username??""}}</td>
+                                <td class="text-center">{{$contact->client->email??""}}</td>
+                                <td class="text-center">{{$contact->client->phone??""}}</td>
 
                                 <td class="text-center">
                                     <form action="{{url(route("contacts.destroy",$contact->id)) }}" method="post" style="display: inline-block">

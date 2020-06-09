@@ -1,65 +1,53 @@
 @extends('front.master')
 @section('title')
-المقال
+المقالات المفضلة
 @endsection
 @section('content')
 
+@php
+$cats =  \DB::table("categories")->get();
+
+ @endphp
+
    <!-- articles -->
    <section id="articles" style="margin-bottom: 20px">
-    <h2 class="donations-head horizntal-line"> {{$post->title}} </h2>
-    <div class="container custom" style="direction: ltr">
+    <h2 class="donations-head horizntal-line"  style="padding:5px">  المقالات المفضلة </h2>
+    <div style="margin-bottom: 30px ;padding:10px">
+        <form action="{{url(route("client_posts"))}}" method="get">
+            <div class="row  dropdown" style="padding-top: 10px">
 
-
-
-
-
-
-                <div class="item">
-                    <div class="card" >
-                        @if(auth()->guard('clients')->user())
-                        <i id="{{$post->id}}" onclick="toggleFavourite(this)" class="fab fa-gratipay
-
-
-                            {{$post->is_favori ? 'second-heart' : 'first-heart'}}
-
-                            "></i>
-                            @endif
-                                                        <!---<i  class="fab fa-gratipay second-heart"></i>-->
-
-                        <img style="max-height:400px " class="card-img-top" src="{{asset($post->img)}}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$post->title}}</h5>
-                            <p class="card-text">{{$post->content}}</p>
-
-                        </div>
-                    </div>
+                <div class="col-md-5" style="margin-top: 5px">
+                    <select class="custom-select js-example-basic-single" name="cat">
+                        <option value="" selected>اختر  الموضوع</option>
+                        @foreach($cats as $cat)
+                        <option
+                        @if(request()->cat)
+                          @if(request()->cat == $cat->id)
+                          {{"selected"}}
+                          @endif
+                          @endif
+                        value="{{$cat->id}}">{{$cat->category}}</option>
+                            @endforeach
+                    </select>
                 </div>
 
 
+                <div class="col-md-2 " style="margin-top: 5px">
+                    <button style="background: #fff"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
+                </div>
 
-
-
+            </div>
+        </form>
     </div>
-
-</section>
-
-@php
-   $posts =\DB::table('posts')->where("category_id",$post->category_id)->where("id","!=",$post->id)->get();
-
-@endphp
-
-<section id="articles" style="margin-bottom: 20px">
-    <h2 class="donations-head horizntal-line"  style="padding:5px"> مقالات ذات صلة </h2>
-    <br>
     <div class="container custom" style="direction: ltr">
-        <div class="owl-carousel owl-theme" id="owl-articles" >
+        <div class="owl-carousel owl-theme" id="owl-articles">
 
 
 
             @foreach($posts as $post)
 
-                <div class="item" >
-                    <div class="card" style="width: ;">
+                <div class="item">
+                    <div class="card" style="width: 22rem;">
                         @if(auth()->guard('clients')->user())
                             <i id="{{$post->id}}" onclick="toggleFavourite(this)" class="fab fa-gratipay
 
@@ -84,16 +72,20 @@
                 </div>
             @endforeach
 
-
         </div>
-
         @if ($posts->count()==0)
-        <div class="alert alert-danger">لا يوجد مقالات </div>
+        <div class="alert alert-danger">لا يوجد مقالات مفضلة لديك</div>
+        @endif
 
-       @endif
+        {{ $posts->appends(request()->query())->links() }}
     </div>
 
 </section>
+<div class="container">
+<div style="margin-bottom: 20px">
+{{ $posts->appends(request()->query())->links() }}
+</div>
+</div>
 @push('scripts')
 <script>
     function toggleFavourite(heart) {
@@ -123,5 +115,4 @@
     }
 </script>
 @endpush
-
 @stop

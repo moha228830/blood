@@ -98,10 +98,6 @@ class donationReqController extends Controller
 public  function destroy ($id)
 {
    $donationReq = donationReq::findOrFail($id);
-   if($donationReq->notify->count()){
-
-    $donationReq->notify->delete();
-   }
 
    $donationReq=$donationReq->delete();
    if($donationReq){

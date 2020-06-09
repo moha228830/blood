@@ -1,4 +1,7 @@
 @extends('front.master')
+@section('title')
+طلبات التبرع
+@endsection
 @section('content')
 @php
 
@@ -9,6 +12,7 @@ $cities =  \DB::table("cities")->get();
 
 
     @endphp
+
 <h2 class="donations-head horizntal-line" style="padding: 5px">طلبات التبرع </h2>
 
 <!-- Donations offers  -->
@@ -17,8 +21,8 @@ $cities =  \DB::table("cities")->get();
         <form action="{{url(route("front.donation"))}}" method="get">
         <div class="row  dropdown" style="padding: 10px">
 
-            <div class="col-md-5" style="margin-top: 5px">
-                <select class="custom-select js-example-basic-single" name="blood">
+            <div class="col-md-4" style="margin-top: 5px">
+                <select class="custom-select js-example-basic-single" name="blood" tyle="width: 100%">
                     <option value="" selected>اختر فصيلة الدم</option>
                     @foreach($blood_types as $blood_type)
                     <option
@@ -32,8 +36,8 @@ $cities =  \DB::table("cities")->get();
                 </select>
             </div>
 
-            <div class="col-md-5" style="margin-top: 5px">
-                <select class="custom-select" name="city">
+            <div class="col-md-4" style="margin-top: 5px">
+                <select class="custom-select js-example-basic-single" name="city" style="width: 100%">
                     <option value="" selected>اختر المدينة</option>
                     @foreach($cities as $city)
                 <option
@@ -46,8 +50,12 @@ $cities =  \DB::table("cities")->get();
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-2 " style="margin-top: 5px">
-                <button style="background: #fff"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
+            <div class="col-md-2 " style="margin-top: 5px;padding:0">
+                <button style="background: #fff;padding:2px"  type="submit" class="btn btn-defult btn-block"> @lang('site.search')</button>
+            </div>
+            <div class="col-md-2 " style="margin-top: 5px ;padding:0">
+               <a href="{{url(route("add_donation"))}}"> <span style="padding:2px"  type="submit" class=" btn-block"> طلب تبرع جديد</span>
+               </a>
             </div>
 
         </div>

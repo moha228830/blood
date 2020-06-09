@@ -9,7 +9,6 @@ use  App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class postController extends Controller
 {
     /**
@@ -31,6 +30,10 @@ class postController extends Controller
 
 
                     });
+                }
+                if ($request->input('category_id'))
+                {
+                    $query->where('category_id',$request->category_id);
                 }
         })->paginate(15);
       // flash('Welcome Aboard!');

@@ -20,7 +20,7 @@ class GeneralController extends Controller
 
         $validator =  Validator::make($request->all(), [
 
-            'govern_id' => 'required|Numeric|exists:App\Models\govern,id',
+            'govern_id' => 'required|Numeric|exists:App\Models\Govern,id',
 
         ]);
 
@@ -48,7 +48,7 @@ class GeneralController extends Controller
 
         $validator =  Validator::make($request->all(), [
 
-            'id' => 'required|Numeric|exists:App\Models\govern,id',
+            'id' => 'required|Numeric|exists:App\Models\Govern,id',
 
         ]);
 

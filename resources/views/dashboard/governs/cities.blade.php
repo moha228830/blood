@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+عرض المدن
+@endsection
 @section('mo')
 @include('flash::message')
 

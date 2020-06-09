@@ -78,7 +78,7 @@
                     </div><!-- /.info-box -->
                   </div><!-- /.col -->
 
-                  <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="col-md-3 col-sm-6 col-xs-12" style="">
                     <div class="info-box">
                       <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
                       <div class="info-box-content">
@@ -91,7 +91,7 @@
 
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-phone"></i></span>
+                      <span class="info-box-icon  bg-aqua"><i class="fa fa-phone"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">تواصل معنا</span>
                         <span class="info-box-number">{{$contacts->count()}}</span>
@@ -103,7 +103,7 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+                      <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">العملاء</span>
                         <span class="info-box-number">{{$clients->count()}}</span>
@@ -115,7 +115,7 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-book"></i></span>
+                      <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">فصائل الدم</span>
                         <span class="info-box-number">{{$blood_types->count()}}</span>
@@ -138,7 +138,7 @@
 
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-heart"></i></span>
+                      <span class="info-box-icon  bg-aqua"><i class="fa fa-heart"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">طلبات التبرع</span>
                         <span class="info-box-number">{{$donation_reqs->count()}}</span>
@@ -149,7 +149,7 @@
 
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+                      <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">المشرفين</span>
                         <span class="info-box-number">{{$users->count()}}</span>
@@ -160,7 +160,7 @@
 
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-yellow"><i class="fa fa-list"></i></span>
+                      <span class="info-box-icon bg-green"><i class="fa fa-list"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">رتب المشرفين</span>
                         <span class="info-box-number">{{$roles->count()}}</span>

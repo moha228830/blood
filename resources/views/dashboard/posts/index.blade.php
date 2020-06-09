@@ -9,7 +9,6 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
 
-
     <h1>
      @lang("المقالات")
     <small style="padding: 2px;background:rgb(180, 164, 164)">{{$posts->count()}}</small>
@@ -50,6 +49,15 @@
                                   'class' => 'form-control',
                                   'placeholder' => '    بحث  بعنوان المقال  '
                               ]) !!}
+                          </div>
+
+                          @inject('categories','App\Models\category')
+                          <div class="col-sm-4" style="margin-top: 5px">
+                              {!! Form::select('category_id',$categories->pluck('category','id')->toArray(),request('category_id'),[
+                                      'class' => 'form-control ',
+                                      'placeholder' =>'  بحث  بالموصوع',
+                                      'style' =>' width:100%;heigh:100%'
+                                  ]) !!}
                           </div>
 
 

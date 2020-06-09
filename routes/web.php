@@ -29,11 +29,13 @@ Route::middleware(['auth:clients'])->group(function () {
     Route::get('/client/profile', 'Auth\clientsLoginController@profile')->name('client_profile');
     Route::post('/client/profile/save', 'Auth\clientsLoginController@profile_save')->name('client_profile_save');
     Route::get('/client/donations/add', 'HomeController@add_donation')->name('add_donation');
+    Route::get('/client/posts/favorite', 'HomeController@favorite')->name('favorite');
+
     Route::post('/client/donations/save', 'HomeController@save_donation')->name('save_donation');
     Route::get('/client/notifications/setting', 'HomeController@notification_setting')->name('notification_setting');
     Route::get('/client/notifications', 'HomeController@notification')->name('notification_client');
     Route::post('/client/notifications/save', 'HomeController@notificationSetting')->name('notificationSetting');
-
+    Route::post('/client/contact', 'HomeController@contact')->name('client.contact');
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');

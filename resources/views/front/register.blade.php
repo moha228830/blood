@@ -1,5 +1,7 @@
 @extends('front.master')
-
+@section('title')
+تسجيل جديد
+@endsection
 @section('content')
 <div class="container" style="margin: 20px auto">
     <div class="row justify-content-center">

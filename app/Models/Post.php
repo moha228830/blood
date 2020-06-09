@@ -45,7 +45,8 @@ class Post extends Model
 
     public function   getIsFavoriAttribute()
     {
-        $favorite = auth()->guard('clients')->user()->whereHas("favorite",function($q){
+
+        $favorite =request()->user()->whereHas("favorite",function($q){
        $q->where("client_post.post_id",$this->id);
     })->first();
 

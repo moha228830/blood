@@ -1,6 +1,8 @@
 @extends('front.master')
 @section('content')
-
+@section('title')
+المقالات
+@endsection
 @php
 $cats =  \DB::table("categories")->get();
 
@@ -14,7 +16,7 @@ $cats =  \DB::table("categories")->get();
             <div class="row  dropdown" style="padding-top: 10px">
 
                 <div class="col-md-5" style="margin-top: 5px">
-                    <select class="custom-select js-example-basic-single" name="cat">
+                    <select class="custom-select js-example-basic-single" name="cat" style="width: 100%">
                         <option value="" selected>اختر  الموضوع</option>
                         @foreach($cats as $cat)
                         <option
@@ -36,15 +38,16 @@ $cats =  \DB::table("categories")->get();
             </div>
         </form>
     </div>
+    <br>
     <div class="container custom" style="direction: ltr">
-        <div class="owl-carousel owl-theme" id="owl-articles">
+        <div class="owl-carousel owl-theme" id="owl-articles" style="margin: auto">
 
 
 
             @foreach($posts as $post)
 
                 <div class="item">
-                    <div class="card" style="width: 22rem;">
+                    <div class="card" style="width: rem;">
                         @if(auth()->guard('clients')->user())
                             <i id="{{$post->id}}" onclick="toggleFavourite(this)" class="fab fa-gratipay
 
@@ -76,6 +79,8 @@ $cats =  \DB::table("categories")->get();
     </div>
 
 </section>
+
+
 <div class="container">
 <div style="margin-bottom: 20px">
 {{ $posts->appends(request()->query())->links() }}

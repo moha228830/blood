@@ -1,5 +1,7 @@
 @extends('front.master')
-
+@section('title')
+الاشعارات
+@endsection
 @section('content')
 <div class="container" style="margin: 20px auto;background:#F8F9FA">
     <div class="card " style="overflow: auto">
@@ -14,11 +16,11 @@
         <div class="col-md-12">
             <div class="row background-div ">
 
-                <div class="col-lg-7">
-                    <ul class="order-details">
+                <div class="col-lg-7" style="padding: 0">
+                    <ul class="" >
                         <div>
 
-                        <span  class="cutom-display ">   {{$item->title}}</span>
+                        <span  class="cutom-display ">   {{$item->created_at}}</span>
                         </div>
 
                         <div>
@@ -34,7 +36,7 @@
                 </div>
                 <div class="col-lg-3">
                     <a href="{{url(route("front.donation.details",$item->donation_req_id))}}">
-                        <button class="btn more2-btn">التفاصيل</button>
+                        <button class="btn btn-primary">التفاصيل</button>
                     </a>
                 </div>
 

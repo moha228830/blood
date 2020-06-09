@@ -1,5 +1,7 @@
 @extends('layouts.dashboard.app')
-
+@section('title')
+تعديل رتبة
+@endsection
 @section('mo')
 @include('flash::message')
 @inject('model','App\Role')

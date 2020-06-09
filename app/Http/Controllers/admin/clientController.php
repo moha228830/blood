@@ -157,51 +157,24 @@ public  function delete ($id)
 {
    $client = Client::findOrFail($id);
 
-   if( $client->donationReqs->count()){
 
-    session()->flash('error', "error");
-    if(session()->has("error")){
-    Alert::error('error', 'يوجد طلبات تبرع مرتبطة بالحقل احذفها اولا');
-
-    return back();
-    }
-
-   }else{
-
-
-     if($client->contacts->count()){$client->contacts()->delete();}
-
-
-     if($client->notifications->count()){$client->notifications()->delete();}
      if($client->tokens->count()){$client->tokens()->delete();}
-     if($client->donationReqs->count()){$client->donationReqs()->delete();}
-     $client->delete();
-     session()->flash('success', "success");
-       if(session()->has("success")){
-       Alert::success('Success Title', 'Success Message');
-       }
 
-         return redirect()->route('clients.index');
+    $client= $client->delete();
 
-   }
+
 
 
    if($client){
 
-       session()->flash('success', "success");
-       if(session()->has("success")){
-       Alert::success('Success Title', 'Success Message');
-       }
 
+       Alert::success('Success Title', 'Success Message');
          return redirect()->route('clients.index');
 
    }else{
 
-        session()->flash('error', "error");
-       if(session()->has("error")){
-       Alert::success('error Title', 'error Message');
-       }
 
+       Alert::error('error Title', 'error Message');
          return redirect()->route('clients.index');
 
    }

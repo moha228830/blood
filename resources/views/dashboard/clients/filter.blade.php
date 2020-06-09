@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.app')
 @section('title')
-@lang("site.clients")
+فلترة المستخدمين
 @endsection
 @section('mo')
 @include('flash::message')

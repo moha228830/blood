@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="overflow:auto">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
           integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
@@ -77,9 +78,9 @@
                         font-size: 72%;}
     </style>
 
-    <title>بنك الدم الرئيسية </title>
+    <title>  @yield('title') </title>
 </head>
-<body>
+<body style="overflow: hidden">
 
 
   <!--top-bar-->
@@ -125,21 +126,32 @@
  $id=auth()->guard('clients')->user()->id;
 $is_read=$ClientNotification->where("client_id",$id)->where("is_read","0")->get();
 @endphp
+                        @if($is_read->count() !=0)
                        <span id="not" class="label label-warning" style=""> {{$is_read->count()}}</span>
-
+                         @endif
                        <i class="fas fa-user ml-2"></i>
 
 
                     </a>
                     <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="index.html"> <i class="fas fa-home ml-2"></i>الرئيسيه</a>
-                    <a class="dropdown-item" href="{{url(route("client_profile"))}}"> <i class="fas fa-user-alt ml-2"></i>معلوماتى</a>
-                        <a class="dropdown-item" href="#"> <i class="fas fa-bell ml-2"></i>اعدادات الاشعارات</a>
-                        <a class="dropdown-item" href="#"> <i class="far fa-heart ml-2"></i>المفضلة</a>
-                        <a class="dropdown-item" href="#"> <i class="far fa-comments ml-2"></i>ابلاغ</a>
-                        <a class="dropdown-item" href="contact.html"> <i class="fas fa-phone ml-2"></i>تواصل
-                            معنا</a>
-                        <a class="dropdown-item" href="#"> <i class="fas fa-sign-out-alt ml-2"></i>خروج</a>
+
+                      <center>
+                          <a class="dropdown-item" href="{{url(route("notification_client"))}}">  <i class="fas fa-bell ml-2"></i> اشعارات طلبات التبرع
+                        @if($is_read->count() !=0)
+                        <span style="color: red">  (  {{$is_read->count()}} )</span>
+                        @endif
+                        </a>
+                     </center>
+
+                        <center> <a class="dropdown-item" href="{{url(route("notification_setting"))}}">  <i class="fa fa-cogs ml-2"></i> اعدادات الاشعارات</a> </center>
+
+                            <center> <a class="dropdown-item" href="{{url(route("client_profile"))}}"> <i class="fas fa-user-alt ml-2"></i> معلوماتى</a> </center>
+
+                                <center><a class="dropdown-item" href="{{url(route("favorite"))}}"> <i class="far fa-heart ml-2"> </i> المفضلة</a> </center>
+                                    <center> <a class="dropdown-item" href="{{url(route("add_donation"))}}"> <i class="fa fa-list ml-2"></i> اضافة طلب تبرع</a> </center>
+
+
+                            <center><a class="dropdown-item" href="{{url(route("client_logout"))}}"> <i class="fas fa-sign-out-alt ml-2"> </i> خروج</a> </center>
 
                     </div>
                 </div>
@@ -158,16 +170,16 @@ $is_read=$ClientNotification->where("client_id",$id)->where("is_read","0")->get(
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse" id="navbarText" style="padding: 5px">
+        <ul class="navbar-nav mr-auto" >
             <li class="nav-item active">
 
-                <a class="nav-link " href="{{url("home")}}#">الرئيسية </a>
+                <a class="nav-link " href="{{url("home")}}">الرئيسية </a>
                 <span class="test"></span>
 
 
             </li>
-            <li class="nav-item">
+            <li class="nav-item" >
                 <a class="nav-link border-left" href="{{url("home")}}#about">عن بنك الدم </a>
             </li>
             <li class="nav-item">
@@ -187,7 +199,10 @@ $is_read=$ClientNotification->where("client_id",$id)->where("is_read","0")->get(
             <li class="nav-item">
                 <a class="nav-link border-left" href="{{url(route("dashboard.index"))}}"> لوحة التحكم </a>
                 </li>
-
+            @else
+            <li class="nav-item">
+                <a class="nav-link border-left" href="{{url(route("dashboard.index"))}}">  ادارة </a>
+                </li>
             @endif
              {{--<!-- Tasks: style can be found in dropdown.less -->--}}
 
@@ -219,7 +234,7 @@ $is_read=$ClientNotification->where("client_id",$id)->where("is_read","0")->get(
             </div>
             <div class="col-md-4">
                 <ul class="footer-list">
-                    <a  href="{{url("home")}}#">
+                    <a  href="{{url("home")}}">
                         <li> الرئيسيه</li>
                     </a>
                     <a  href="{{url("home")}}#about">

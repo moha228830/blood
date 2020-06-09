@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Token;
 use App\Models\Client;
+use App\Models\DonationReq;
+use App\Models\ContactMesseg;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 class HomeController extends Controller
@@ -54,7 +56,7 @@ class HomeController extends Controller
 
     })
 
-->paginate(8);
+->paginate(4);
         return view('home',["donation_reqs"=>$donation_reqs ,"posts"=>$posts]);
     }
 
@@ -107,6 +109,8 @@ class HomeController extends Controller
 
     public function donation_details(Request $request,$id)
     {
+        DonationReq::findOrFail($id);
+
         $donation_reqs =  \DB::table("donation_reqs")
         ->leftJoin('blood_types', 'blood_types.id', '=', 'donation_reqs.blood_type_id')
         ->leftJoin('cities', 'cities.id', '=', 'donation_reqs.city_id')
@@ -121,13 +125,14 @@ class HomeController extends Controller
 \DB::raw("cities.name"),
 )->where("donation_reqs.id",$id)->first();
 
-
+if(auth()->guard('clients')->user()){
 
 $a=auth()->guard('clients')->user()->notifications()->where('donation_req_id',$donation_reqs->donation_id)->first();
  if($a){
     auth()->guard('clients')->user()->notifications()->updateExistingPivot($a->pivot->notification_id, [
    'is_read' => 1
 ]);
+    }
  }
 return view('front.donation-details',["donation_reqs"=>$donation_reqs]);
 
@@ -172,9 +177,68 @@ public function posts(Request $request)
 }
 
 
+
+
+
+    public function favorite (){
+
+
+
+        $posts = request()->user()->favorite()->latest()->paginate(12);
+        return view('front.favorite',["posts"=>$posts]);
+
+        }
+
+
+
+        public function contact(Request $request)
+        {
+
+            $messeges = [
+
+                'title.required'=>"  ادخل العنوان ",
+                'content.required'=>"   ادخل المحتوي",
+
+               ];
+
+            $validator =  Validator::make($request->all(), [
+
+                'title' => 'required',
+                'content' => 'required',
+
+            ],  $messeges);
+
+
+            if ($validator->fails()) {
+                Alert::error('error',$validator->errors()->first());
+                 return back();
+            }
+
+
+            $contact = ContactMesseg::create([
+            "title"=>$request->title,
+            "content"=>$request->content,
+            "client_id"=>$request->user()->id,
+            ]);
+            if ($contact) {
+
+                Alert::success('success',"تم الارسال بنجاح");
+                 return back();
+
+
+            } else {
+
+                Alert::error('error'," فشل الارسال حاول مرة اخري");
+                 return back();
+            }
+        }
+
+
+
 public function post($id)
 {
-    $post= Post::find($id) ;
+    $post= Post::findOrFail($id) ;
+
     return view('front.post',["post"=>$post]);
 }
 

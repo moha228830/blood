@@ -34,7 +34,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::get('/clients/filter', 'clientController@filter')->name('clients.filter');
         Route::get('/clients/active/{id}', 'clientController@active')->name('clients.active');
         Route::get('/clients/Inactive/{id}', 'clientController@Inactive')->name('clients.Inactive');
-        Route::delete('/clients/delete/{id}', 'clientController@delete')->name('clients.delete');
+        Route::post('/clients/delete/{id}', 'clientController@delete')->name('clients.delete');
         Route::get('/settings', 'settingController@index')->name('settings.index');
         Route::post('/settings/update', 'settingController@update')->name('settings.update');
         Route::get('/profile', 'profileController@index')->name('profile.index');
