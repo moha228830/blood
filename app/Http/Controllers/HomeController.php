@@ -218,7 +218,7 @@ public function posts(Request $request)
             $contact = ContactMesseg::create([
             "title"=>$request->title,
             "content"=>$request->content,
-            "client_id"=>$request->user()->id,
+            "client_id"=>auth()->guard('clients')->user()->id,
             ]);
             if ($contact) {
 
@@ -307,7 +307,7 @@ public function save_donation(Request $request)
 
 
 
-        $donation =$request->user()-> donationReqs()->create($request->all());
+        $donation =auth()->guard('clients')->user()->donationReqs()->create($request->all());
         $data = $donation->with("blood_type")->with("city")->first();
 
 
@@ -389,7 +389,7 @@ public function notification_setting()
 
 public function notification(Request $request)
 {
-    $all=  $request->user()->notifications;
+    $all=  auth()->guard('clients')->user()->notifications;
     return view('front.notification',["all"=>$all]);
 }
 
@@ -422,19 +422,19 @@ public function notificationSetting(Request $request)
 
         if ($request->has('governs')) {
 
-            $request->user()->notification()->sync($request->governs);
+            auth()->guard('clients')->user()->notification()->sync($request->governs);
         }
 
 
         if ($request->has('blood_types')) {
-            $request->user()->notificate()->sync($request->blood_types);
+            auth()->guard('clients')->user()->notificate()->sync($request->blood_types);
         }
 
 
         $data = [
-            'governs' => $request->user()->notification()->pluck('governs.id')->toArray(),
+            'governs' => auth()->guard('clients')->user()->notification()->pluck('governs.id')->toArray(),
 
-            'blood_types'  => $request->user()->notificate()->pluck('blood_types.id')->toArray(),
+            'blood_types'  => auth()->guard('clients')->user()->notificate()->pluck('blood_types.id')->toArray(),
         ];
 
 
